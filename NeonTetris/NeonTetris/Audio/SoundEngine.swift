@@ -46,7 +46,12 @@ class SoundEngine {
         engine.attach(mixer)
         engine.connect(mixer, to: engine.mainMixerNode, format: nil)
         mixer.outputVolume = volume
-        try? engine.start()
+        
+        do {
+            try engine.start()
+        } catch {
+            print("音效引擎启动失败: \(error)")
+        }
     }
 
     // MARK: - 预加载所有音效
@@ -82,58 +87,121 @@ class SoundEngine {
 
         switch effect {
         case .move:
-            return generateTone(frequency: 440, duration: 0.05, envelope: .click, format: format)
+            // 移动：清脆的点击声，800Hz + 噪声，持续 30ms
+            return generateClickWithNoise(frequency: 800, duration: 0.03, format: format)
         case .rotate:
-            return generateSweep(from: 300, to: 600, duration: 0.08, format: format)
+            // 旋转：上升的嗖嗖声，从 400Hz 扫到 1000Hz，带噪声，持续 100ms
+            return generateSweepWithNoise(from: 400, to: 1000, duration: 0.1, format: format)
         case .rotateFail:
-            return generateTone(frequency: 200, duration: 0.06, envelope: .click, format: format)
+            // 旋转失败：低沉的"咔"声，150Hz + 噪声，持续 80ms
+            return generateClickWithNoise(frequency: 150, duration: 0.08, format: format)
         case .softDrop:
-            return generateTone(frequency: 350, duration: 0.04, envelope: .click, format: format)
+            // 软降：快速连续的点击，600Hz，持续 40ms
+            return generateClickWithNoise(frequency: 600, duration: 0.04, format: format)
         case .hardDrop:
-            return generateTone(frequency: 150, duration: 0.12, envelope: .punch, format: format)
+            // 硬降：沉重的撞击声，低频 80Hz + 高频噪声，持续 200ms
+            return generateImpact(duration: 0.2, format: format)
         case .lock:
-            return generateTone(frequency: 500, duration: 0.08, envelope: .click, format: format)
+            // 锁定：清脆的"哒"声，1200Hz，持续 60ms
+            return generateClickWithNoise(frequency: 1200, duration: 0.06, format: format)
         case .clear1:
-            return generateChord(frequencies: [523, 659], duration: 0.2, format: format)
+            // 消1行：上升的"叮"声，523Hz 上升到 784Hz，持续 300ms
+            return generateRisingTone(from: 523, to: 784, duration: 0.3, format: format)
         case .clear2:
-            return generateChord(frequencies: [523, 659, 784], duration: 0.25, format: format)
+            // 消2行：更欢快的双音，523Hz + 659Hz，持续 350ms
+            return generateChord([523, 659], duration: 0.35, format: format)
         case .clear3:
-            return generateChord(frequencies: [523, 659, 784, 1047], duration: 0.3, format: format)
+            // 消3行：三音和弦，523Hz + 659Hz + 784Hz，持续 400ms
+            return generateChord([523, 659, 784], duration: 0.4, format: format)
         case .clear4:
-            return generateChord(frequencies: [523, 659, 784, 1047, 1319], duration: 0.5, format: format)
+            // 消4行（Tetris）：五声音阶上升，C5 E5 G5 C6 E6，持续 600ms
+            return generateArpeggio([523, 659, 784, 1047, 1319], duration: 0.6, format: format)
         case .hold:
-            return generateSweep(from: 400, to: 600, duration: 0.1, format: format)
+            // 暂存：轻快的交换声，400Hz 上升到 800Hz，持续 120ms
+            return generateSweepWithNoise(from: 400, to: 800, duration: 0.12, format: format)
         case .levelUp:
-            return generateArpeggio(frequencies: [523, 659, 784, 1047], duration: 0.4, format: format)
+            // 升级：胜利的号角音阶，C5 E5 G5 C6，持续 500ms
+            return generateArpeggio([523, 659, 784, 1047], duration: 0.5, format: format)
         case .gameOver:
-            return generateSweep(from: 400, to: 100, duration: 0.8, format: format)
+            // 游戏结束：下降的哀鸣，400Hz 下降到 100Hz，持续 1000ms
+            return generateDescendingTone(from: 400, to: 100, duration: 1.0, format: format)
         case .wallHit:
-            return generateTone(frequency: 180, duration: 0.04, envelope: .click, format: format)
+            // 撞墙：沉闷的撞击，120Hz + 噪声，持续 60ms
+            return generateClickWithNoise(frequency: 120, duration: 0.06, format: format)
         }
     }
 
-    // MARK: - 音效生成工具
+    // MARK: - 音效生成工具（改进版）
 
-    enum Envelope { case click, punch }
-
-    private func generateTone(frequency: Double, duration: Double, envelope: Envelope, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+    // 生成带噪声的点击声
+    private func generateClickWithNoise(frequency: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
         let frameCount = AVAudioFrameCount(format.sampleRate * duration)
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
         buffer.frameLength = frameCount
         let data = buffer.floatChannelData![0]
         for i in 0..<Int(frameCount) {
             let t = Double(i) / format.sampleRate
-            let env: Float
-            switch envelope {
-            case .click: env = Float(exp(-t * 30))
-            case .punch: env = Float(exp(-t * 10))
-            }
-            data[i] = Float(sin(2 * .pi * frequency * t)) * env * 0.5
+            let progress = t / duration
+            // 快速衰减的包络
+            let env = Float(exp(-t * 40)) * 0.6
+            // 正弦波
+            let sine = Float(sin(2 * .pi * frequency * t))
+            // 添加谐波
+            let harmonic = Float(sin(4 * .pi * frequency * t)) * 0.3
+            // 添加高频噪声
+            let noise = Float.random(in: -1...1) * 0.15
+            data[i] = (sine + harmonic + noise) * env
         }
         return buffer
     }
 
-    private func generateSweep(from: Double, to: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+    // 生成带噪声的扫频
+    private func generateSweepWithNoise(from: Double, to: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            let progress = t / duration
+            // 对数扫频
+            let freq = from * pow(to / from, progress)
+            // 缓慢衰减的包络
+            let env = Float(exp(-t * 5)) * 0.5
+            // 正弦波
+            let sine = Float(sin(2 * .pi * freq * t))
+            // 添加噪声
+            let noise = Float.random(in: -1...1) * 0.1
+            data[i] = (sine + noise) * env
+        }
+        return buffer
+    }
+
+    // 生成撞击声（低频 + 噪声）
+    private func generateImpact(duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            // 快速攻击然后缓慢衰减
+            let attack = Float(min(t / 0.01, 1.0))
+            let decay = Float(exp(-t * 8))
+            let env = attack * decay * 0.7
+            // 低频正弦波
+            let bass = Float(sin(2 * .pi * 80 * t))
+            // 中频成分
+            let mid = Float(sin(2 * .pi * 200 * t)) * 0.5
+            // 高频噪声
+            let noise = Float.random(in: -1...1) * 0.4
+            data[i] = (bass + mid + noise) * env
+        }
+        return buffer
+    }
+
+    // 生成上升音调
+    private func generateRisingTone(from: Double, to: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
         let frameCount = AVAudioFrameCount(format.sampleRate * duration)
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
         buffer.frameLength = frameCount
@@ -142,20 +210,52 @@ class SoundEngine {
             let t = Double(i) / format.sampleRate
             let progress = t / duration
             let freq = from + (to - from) * progress
-            let env = Float(1.0 - progress) * 0.5
-            data[i] = Float(sin(2 * .pi * freq * t)) * env
+            // 包络：渐入渐出
+            let env: Float
+            if progress < 0.1 {
+                env = Float(progress / 0.1) * 0.6
+            } else {
+                env = Float(exp(-(progress - 0.1) * 3)) * 0.6
+            }
+            // 正弦波 + 泛音
+            let sine = Float(sin(2 * .pi * freq * t))
+            let harmonic = Float(sin(4 * .pi * freq * t)) * 0.3
+            let bright = Float(sin(6 * .pi * freq * t)) * 0.1
+            data[i] = (sine + harmonic + bright) * env
         }
         return buffer
     }
 
-    private func generateChord(frequencies: [Double], duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+    // 生成下降音调
+    private func generateDescendingTone(from: Double, to: Double, duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
         let frameCount = AVAudioFrameCount(format.sampleRate * duration)
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
         buffer.frameLength = frameCount
         let data = buffer.floatChannelData![0]
         for i in 0..<Int(frameCount) {
             let t = Double(i) / format.sampleRate
-            let env = Float(exp(-t * 3)) * 0.4
+            let progress = t / duration
+            let freq = from * pow(to / from, progress)
+            // 缓慢衰减的包络
+            let env = Float(exp(-t * 2)) * 0.6
+            // 正弦波 + 低频泛音
+            let sine = Float(sin(2 * .pi * freq * t))
+            let bass = Float(sin(.pi * freq * t)) * 0.4
+            data[i] = (sine + bass) * env
+        }
+        return buffer
+    }
+
+    // 生成和弦
+    private func generateChord(_ frequencies: [Double], duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            // 指数衰减包络
+            let env = Float(exp(-t * 4)) * 0.4
             var sample: Float = 0
             for freq in frequencies {
                 sample += Float(sin(2 * .pi * freq * t))
@@ -165,7 +265,8 @@ class SoundEngine {
         return buffer
     }
 
-    private func generateArpeggio(frequencies: [Double], duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+    // 生成琶音
+    private func generateArpeggio(_ frequencies: [Double], duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
         let frameCount = AVAudioFrameCount(format.sampleRate * duration)
         guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
         buffer.frameLength = frameCount
@@ -176,8 +277,11 @@ class SoundEngine {
             let noteIdx = min(Int(t / noteLen), frequencies.count - 1)
             let freq = frequencies[noteIdx]
             let localT = t - Double(noteIdx) * noteLen
-            let env = Float(exp(-localT * 8)) * 0.5
-            data[i] = Float(sin(2 * .pi * freq * t)) * env
+            // 每个音符独立的包络
+            let env = Float(exp(-localT * 6)) * 0.6
+            let sine = Float(sin(2 * .pi * freq * t))
+            let harmonic = Float(sin(4 * .pi * freq * t)) * 0.2
+            data[i] = (sine + harmonic) * env
         }
         return buffer
     }
@@ -185,6 +289,7 @@ class SoundEngine {
     // MARK: - 播放音效
     func play(_ effect: SoundEffect) {
         guard enabled, let buffer = buffers[effect] else { return }
+        
         let player = AVAudioPlayerNode()
         engine.attach(player)
         engine.connect(player, to: mixer, format: buffer.format)

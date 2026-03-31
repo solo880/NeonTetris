@@ -4,6 +4,7 @@
 // ============================================================
 
 import SwiftUI
+import AppKit
 
 struct GameBoardView: View {
     @ObservedObject var engine: GameEngine
@@ -77,21 +78,56 @@ struct GameBoardView: View {
                     }
                 }
                 
-                // 绘制粒子
+                // 绘制粒子（三层离子结构：核心 1/4 → 壳层 1/4 → 外层 2/4）
                 for particle in particles.particles {
-                    let rect = CGRect(x: CGFloat(particle.x) - CGFloat(particle.size) / 2,
-                                     y: CGFloat(particle.y) - CGFloat(particle.size) / 2,
-                                     width: CGFloat(particle.size),
-                                     height: CGFloat(particle.size))
-                    let color = Color(red: Double(particle.r), green: Double(particle.g), blue: Double(particle.b))
+                    let progress = particle.lifeProgress
+                    let size = particle.size * CGFloat(progress)
+                    
+                    // ========== 第一层：外层（最大，最虚） ==========
+                    // 半径：2/4（整个离子圆的一半），透明度：20%
+                    let outerSize = size * 2.0  // 2/4 = 0.5，但这里是直径，所以 size * 2.0
+                    let outerRect = CGRect(x: particle.position.x - outerSize / 2,
+                                          y: particle.position.y - outerSize / 2,
+                                          width: outerSize,
+                                          height: outerSize)
                     context.fill(
-                        Path(ellipseIn: rect),
-                        with: .color(color.opacity(Double(particle.alpha)))
+                        Path(ellipseIn: outerRect),
+                        with: .color(particle.outerColor.opacity(Double(progress) * 0.20))
+                    )
+                    
+                    // ========== 第二层：壳层（中等，半透） ==========
+                    // 半径：1/4（整个离子圆的 1/4），透明度：50%
+                    let shellSize = size * 1.0  // 1/4 + 1/4 = 1/2，但壳层是 1/4，所以相对于核心是 1.0
+                    let shellRect = CGRect(x: particle.position.x - shellSize / 2,
+                                          y: particle.position.y - shellSize / 2,
+                                          width: shellSize,
+                                          height: shellSize)
+                    context.fill(
+                        Path(ellipseIn: shellRect),
+                        with: .color(particle.shellColor.opacity(Double(progress) * 0.50))
+                    )
+                    
+                    // ========== 第三层：核心（最小，最亮） ==========
+                    // 半径：1/4（整个离子圆的 1/4），透明度：80%
+                    let coreSize = size * 0.5  // 1/4 相对于整个离子圆，所以是 size * 0.5
+                    let coreRect = CGRect(x: particle.position.x - coreSize / 2,
+                                         y: particle.position.y - coreSize / 2,
+                                         width: coreSize,
+                                         height: coreSize)
+                    context.fill(
+                        Path(ellipseIn: coreRect),
+                        with: .color(particle.color.opacity(Double(progress) * 0.80))
                     )
                 }
             }
             .frame(width: GameConst.boardW, height: GameConst.boardH)
             .border(theme.config.accentColor, width: 2)
+            .overlay(
+                KeyboardEventHandler { key in
+                    handleKeyPress(key)
+                }
+                .frame(width: 0, height: 0)
+            )
         }
         .onAppear { startDisplayLoop() }
         .onDisappear { stopDisplayLoop() }
@@ -159,6 +195,35 @@ struct GameBoardView: View {
             with: .color(theme.config.accentColor.opacity(0.5)),
             lineWidth: 1
         )
+    }
+}
+
+// MARK: - 键盘事件处理
+struct KeyboardEventHandler: NSViewRepresentable {
+    var onKeyDown: (String) -> Void
+    
+    func makeNSView(context: Context) -> NSView {
+        let view = KeyboardView()
+        view.onKeyDown = onKeyDown
+        DispatchQueue.main.async {
+            view.window?.makeFirstResponder(view)
+        }
+        return view
+    }
+    
+    func updateNSView(_ nsView: NSView, context: Context) {}
+}
+
+class KeyboardView: NSView {
+    var onKeyDown: ((String) -> Void)?
+    
+    override var acceptsFirstResponder: Bool { true }
+    
+    override func keyDown(with event: NSEvent) {
+        let characters = event.characters ?? ""
+        for char in characters {
+            onKeyDown?(String(char))
+        }
     }
 }
 

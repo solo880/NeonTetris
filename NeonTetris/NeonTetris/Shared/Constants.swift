@@ -44,10 +44,10 @@ enum ScoreConst {
 
 // MARK: - 粒子常量
 enum ParticleConst {
-    static let maxParticles = 8000   // 最大粒子数
-    static let ionTrailRate = 2      // 每帧每方块发射离子数
-    static let airFlowCount = 6      // 移动/下落时空气粒子数
-    static let spinOutCount = 12     // 旋转甩出粒子数
-    static let burnCount    = 20     // 行消除燃烧粒子数（每格）
-    static let splashCount  = 8      // 行消除飞溅粒子数（每格）
+    static let maxParticles = 50000  // 最大粒子数（大幅增加）
+    static let ionTrailRate = 8      // 每帧每方块发射离子数（从2增加到8）
+    static let airFlowCount = 15     // 移动/下落时空气粒子数（从6增加到15）
+    static let spinOutCount = 24     // 旋转甩出粒子数（从12增加到24）
+    static let burnCount    = 40     // 行消除燃烧粒子数（每格，从20增加到40）
+    static let splashCount  = 20     // 行消除飞溅粒子数（每格，从8增加到20）
 }

@@ -21,6 +21,9 @@ struct ContentView: View {
     @State private var showThemeSettings = false
     @State private var gameWasPlaying = false
     
+    // 保存订阅，防止被立即释放
+    @State private var cancellables = Set<AnyCancellable>()
+    
     var body: some View {
         ZStack {
             // 背景
@@ -115,14 +118,21 @@ struct ContentView: View {
     }
     
     private func setupGame() {
+        // 初始化音频引擎
         soundEngine = SoundEngine()
-        musicPlayer = MusicPlayer()
+        soundEngine?.enabled = settings.soundEnabled
+        soundEngine?.volume = settings.soundVolume
         
-        // 订阅游戏事件
-        _ = soundEngine?.subscribe(to: engine.eventPublisher)
+        musicPlayer = MusicPlayer()
+        musicPlayer?.enabled = settings.musicEnabled
+        musicPlayer?.volume = settings.musicVolume
+        
+        // 订阅游戏事件 — 必须 store 否则立即释放
+        soundEngine?.subscribe(to: engine.eventPublisher)
+            .store(in: &cancellables)
         
         // 订阅粒子事件
-        let _ = engine.eventPublisher.sink { [weak particles] event in
+        engine.eventPublisher.sink { [weak particles] event in
             guard let particles = particles else { return }
             switch event {
             case .moveLeft(let piece):
@@ -143,6 +153,7 @@ struct ContentView: View {
                 break
             }
         }
+        .store(in: &cancellables)
         
         musicPlayer?.play()
     }

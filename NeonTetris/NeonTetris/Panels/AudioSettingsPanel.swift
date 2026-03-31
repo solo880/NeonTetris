@@ -25,27 +25,47 @@ struct AudioSettingsPanel: View {
                 Button("关闭") { dismiss() }
             }
             
-            Form {
-                Section("音效") {
+            VStack(spacing: 15) {
+                // 测试音效按钮
+                Button(action: {
+                    // 测试各种音效
+                    soundEngine?.play(.move)
+                }) {
+                    Label("测试音效", systemImage: "speaker.wave.2")
+                        .frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                
+                Divider()
+                
+                // 音效设置
+                VStack(alignment: .leading, spacing: 10) {
                     Toggle("启用音效", isOn: $soundEnabled)
                         .onChange(of: soundEnabled) { soundEngine?.enabled = $0 }
                     
-                    Slider(value: $soundVolume, in: 0...1, step: 0.1)
-                        .onChange(of: soundVolume) { soundEngine?.volume = $0 }
-                    
-                    Text("音量 \(Int(soundVolume * 100))%")
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("音量")
+                        Slider(value: $soundVolume, in: 0...1, step: 0.1)
+                            .onChange(of: soundVolume) { soundEngine?.volume = $0 }
+                        Text("\(Int(soundVolume * 100))%")
+                            .frame(width: 40)
+                    }
                 }
                 
-                Section("背景音乐") {
+                Divider()
+                
+                // 背景音乐设置
+                VStack(alignment: .leading, spacing: 10) {
                     Toggle("启用背景音乐", isOn: $musicEnabled)
                         .onChange(of: musicEnabled) { musicPlayer?.enabled = $0 }
                     
-                    Slider(value: $musicVolume, in: 0...1, step: 0.1)
-                        .onChange(of: musicVolume) { musicPlayer?.volume = $0 }
-                    
-                    Text("音量 \(Int(musicVolume * 100))%")
-                        .foregroundColor(.secondary)
+                    HStack {
+                        Text("音量")
+                        Slider(value: $musicVolume, in: 0...1, step: 0.1)
+                            .onChange(of: musicVolume) { musicPlayer?.volume = $0 }
+                        Text("\(Int(musicVolume * 100))%")
+                            .frame(width: 40)
+                    }
                     
                     Button("选择自定义音乐") {
                         musicPlayer?.selectCustomMusic()
@@ -57,12 +77,12 @@ struct AudioSettingsPanel: View {
                             .foregroundColor(.secondary)
                     }
                 }
+                
+                Spacer()
             }
-            
-            Spacer()
+            .padding()
         }
-        .padding()
-        .frame(width: 400, height: 400)
+        .frame(width: 350, height: 400)
         .onAppear {
             soundVolume = soundEngine?.volume ?? 0.8
             musicVolume = musicPlayer?.volume ?? 0.5
