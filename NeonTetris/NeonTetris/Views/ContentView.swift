@@ -1,0 +1,185 @@
+// ============================================================
+// ContentView.swift — 主容器视图
+// 负责：整体布局、状态管理、事件订阅
+// ============================================================
+
+import SwiftUI
+import Combine
+
+struct ContentView: View {
+    @StateObject private var engine = GameEngine()
+    @StateObject private var theme = AppTheme()
+    @StateObject private var settings = GameSettings()
+    @StateObject private var particles = ParticleSystem()
+    @StateObject private var leaderboard = LeaderboardManager.shared
+    
+    @State private var soundEngine: SoundEngine?
+    @State private var musicPlayer: MusicPlayer?
+    @State private var showSettings = false
+    @State private var showLeaderboard = false
+    @State private var showAudioSettings = false
+    @State private var showThemeSettings = false
+    @State private var gameWasPlaying = false
+    
+    var body: some View {
+        ZStack {
+            // 背景
+            theme.config.backgroundColor
+                .ignoresSafeArea()
+            
+            // 星空背景动画
+            StarfieldBackground()
+                .ignoresSafeArea()
+            
+            // 主游戏布局
+            HStack(spacing: 20) {
+                // 左面板
+                VStack(spacing: 15) {
+                    HoldPieceView(engine: engine, theme: theme)
+                    ScorePanelView(engine: engine, theme: theme)
+                    
+                    Button(action: { showSettings = true }) {
+                        Label("游戏设置", systemImage: "gearshape")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Button(action: { showLeaderboard = true }) {
+                        Label("排行榜", systemImage: "trophy")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Spacer()
+                }
+                .frame(width: 150)
+                .padding()
+                .background(theme.config.panelColor)
+                .cornerRadius(12)
+                
+                // 中心：游戏板
+                ZStack {
+                    GameBoardView(engine: engine, theme: theme, particles: particles)
+                    
+                    // 游戏状态覆盖
+                    OverlayView(engine: engine, theme: theme, onStart: startGame)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                // 右面板
+                VStack(spacing: 15) {
+                    NextPiecesView(engine: engine, theme: theme)
+                    
+                    Button(action: { showAudioSettings = true }) {
+                        Label("音频", systemImage: "speaker.wave.2")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Button(action: { showThemeSettings = true }) {
+                        Label("主题", systemImage: "paintbrush")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    
+                    Spacer()
+                }
+                .frame(width: 150)
+                .padding()
+                .background(theme.config.panelColor)
+                .cornerRadius(12)
+            }
+            .padding(20)
+        }
+        .environmentObject(engine)
+        .environmentObject(theme)
+        .environmentObject(settings)
+        .environmentObject(particles)
+        .onAppear { setupGame() }
+        .sheet(isPresented: $showSettings) {
+            GameSettingsPanel(settings: settings, theme: theme)
+                .environmentObject(engine)
+        }
+        .sheet(isPresented: $showLeaderboard) {
+            LeaderboardPanel(leaderboard: leaderboard, theme: theme)
+        }
+        .sheet(isPresented: $showAudioSettings) {
+            AudioSettingsPanel(soundEngine: soundEngine, musicPlayer: musicPlayer, theme: theme)
+        }
+        .sheet(isPresented: $showThemeSettings) {
+            ThemeSettingsPanel(theme: theme)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
+            musicPlayer?.stop()
+        }
+    }
+    
+    private func setupGame() {
+        soundEngine = SoundEngine()
+        musicPlayer = MusicPlayer()
+        
+        // 订阅游戏事件
+        _ = soundEngine?.subscribe(to: engine.eventPublisher)
+        
+        // 订阅粒子事件
+        let _ = engine.eventPublisher.sink { [weak particles] event in
+            guard let particles = particles else { return }
+            switch event {
+            case .moveLeft(let piece):
+                particles.emitAirFlow(piece: piece, blockSize: GameConst.blockSize, direction: -1)
+            case .moveRight(let piece):
+                particles.emitAirFlow(piece: piece, blockSize: GameConst.blockSize, direction: 1)
+            case .rotate(let piece):
+                particles.emitSpinOut(piece: piece, blockSize: GameConst.blockSize, color: piece.type.defaultColor)
+            case .softDrop(let piece):
+                particles.emitAirFlow(piece: piece, blockSize: GameConst.blockSize, direction: 0)
+            case .hardDrop(let piece, let fromY, let toY):
+                particles.emitHardDropTrail(piece: piece, fromY: fromY, toY: toY, blockSize: GameConst.blockSize, color: piece.type.defaultColor)
+            case .lock(let piece):
+                particles.emitLockFlash(piece: piece, blockSize: GameConst.blockSize, color: piece.type.defaultColor)
+            case .lineClear(let rows, _):
+                particles.emitLineClear(rows: rows, blockSize: GameConst.blockSize, boardValues: engine.board, pieceColors: { $0.defaultColor })
+            default:
+                break
+            }
+        }
+        
+        musicPlayer?.play()
+    }
+    
+    private func startGame() {
+        engine.startGame()
+    }
+}
+
+// MARK: - 星空背景
+struct StarfieldBackground: View {
+    @State private var stars: [Star] = []
+    
+    struct Star {
+        var x: CGFloat
+        var y: CGFloat
+        var opacity: Double
+    }
+    
+    var body: some View {
+        Canvas { context, size in
+            for star in stars {
+                var path = Path()
+                path.addEllipse(in: CGRect(x: star.x, y: star.y, width: 2, height: 2))
+                context.fill(path, with: .color(.white.opacity(star.opacity)))
+            }
+        }
+        .onAppear {
+            stars = (0..<100).map { _ in
+                Star(x: CGFloat.random(in: 0...1000),
+                     y: CGFloat.random(in: 0...700),
+                     opacity: Double.random(in: 0.3...1.0))
+            }
+        }
+    }
+}
+
+#Preview {
+    ContentView()
+}

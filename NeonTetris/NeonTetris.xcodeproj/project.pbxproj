@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D6EB1C852F7C09A0002C6AAC /* NeonTetris2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C5D2F7C09A0002C6AAC /* NeonTetris2App.swift */; };
+		D6EB1C862F7C09A0002C6AAC /* ParticleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C5F2F7C09A0002C6AAC /* ParticleTypes.swift */; };
+		D6EB1C872F7C09A0002C6AAC /* ParticleSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C602F7C09A0002C6AAC /* ParticleSystem.swift */; };
+		D6EB1C882F7C09A0002C6AAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1C632F7C09A0002C6AAC /* Assets.xcassets */; };
+		D6EB1C892F7C09A0002C6AAC /* leaderboard.txt in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1C642F7C09A0002C6AAC /* leaderboard.txt */; };
+		D6EB1C8A2F7C09A0002C6AAC /* AudioSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C672F7C09A0002C6AAC /* AudioSettingsPanel.swift */; };
+		D6EB1C8B2F7C09A0002C6AAC /* ThemeSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C682F7C09A0002C6AAC /* ThemeSettingsPanel.swift */; };
+		D6EB1C8C2F7C09A0002C6AAC /* LeaderboardPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C692F7C09A0002C6AAC /* LeaderboardPanel.swift */; };
+		D6EB1C8D2F7C09A0002C6AAC /* GameSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6A2F7C09A0002C6AAC /* GameSettingsPanel.swift */; };
+		D6EB1C8E2F7C09A0002C6AAC /* LeaderboardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6C2F7C09A0002C6AAC /* LeaderboardEntry.swift */; };
+		D6EB1C8F2F7C09A0002C6AAC /* LeaderboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6D2F7C09A0002C6AAC /* LeaderboardManager.swift */; };
+		D6EB1C902F7C09A0002C6AAC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */; };
+		D6EB1C912F7C09A0002C6AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C702F7C09A0002C6AAC /* Extensions.swift */; };
+		D6EB1C922F7C09A0002C6AAC /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C722F7C09A0002C6AAC /* MusicPlayer.swift */; };
+		D6EB1C932F7C09A0002C6AAC /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C732F7C09A0002C6AAC /* SoundEngine.swift */; };
+		D6EB1C942F7C09A0002C6AAC /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C752F7C09A0002C6AAC /* ThemeConfig.swift */; };
+		D6EB1C952F7C09A0002C6AAC /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C762F7C09A0002C6AAC /* AppTheme.swift */; };
+		D6EB1C962F7C09A0002C6AAC /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C792F7C09A0002C6AAC /* OverlayView.swift */; };
+		D6EB1C972F7C09A0002C6AAC /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C7A2F7C09A0002C6AAC /* GameBoardView.swift */; };
+		D6EB1C982F7C09A0002C6AAC /* NextPiecesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C7B2F7C09A0002C6AAC /* NextPiecesView.swift */; };
+		D6EB1C992F7C09A0002C6AAC /* HoldPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C7C2F7C09A0002C6AAC /* HoldPieceView.swift */; };
+		D6EB1C9A2F7C09A0002C6AAC /* ScorePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C7D2F7C09A0002C6AAC /* ScorePanelView.swift */; };
+		D6EB1C9B2F7C09A0002C6AAC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C7E2F7C09A0002C6AAC /* ContentView.swift */; };
+		D6EB1C9C2F7C09A0002C6AAC /* TetrominoTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C802F7C09A0002C6AAC /* TetrominoTypes.swift */; };
+		D6EB1C9D2F7C09A0002C6AAC /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C812F7C09A0002C6AAC /* GameEngine.swift */; };
+		D6EB1C9E2F7C09A0002C6AAC /* ScoreSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C822F7C09A0002C6AAC /* ScoreSystem.swift */; };
+		D6EB1C9F2F7C09A0002C6AAC /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C832F7C09A0002C6AAC /* GameSettings.swift */; };
+		D6EB1CA02F7C09A0002C6AAC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1C842F7C09A0002C6AAC /* Info.plist */; };
+		D6EB1CA72F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA22F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md */; };
+		D6EB1CA82F7C09BB002C6AAC /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA32F7C09BB002C6AAC /* ARCHITECTURE.md */; };
+		D6EB1CA92F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA42F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md */; };
+		D6EB1CAA2F7C09BB002C6AAC /* XCODE_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA52F7C09BB002C6AAC /* XCODE_FIX.md */; };
+		D6EB1CAB2F7C09BB002C6AAC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA62F7C09BB002C6AAC /* README.md */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D6EB1C592F7C0966002C6AAC /* NeonTetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeonTetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6EB1C5D2F7C09A0002C6AAC /* NeonTetris2App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonTetris2App.swift; sourceTree = "<group>"; };
+		D6EB1C5F2F7C09A0002C6AAC /* ParticleTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleTypes.swift; sourceTree = "<group>"; };
+		D6EB1C602F7C09A0002C6AAC /* ParticleSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
+		D6EB1C632F7C09A0002C6AAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D6EB1C642F7C09A0002C6AAC /* leaderboard.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = leaderboard.txt; sourceTree = "<group>"; };
+		D6EB1C672F7C09A0002C6AAC /* AudioSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSettingsPanel.swift; sourceTree = "<group>"; };
+		D6EB1C682F7C09A0002C6AAC /* ThemeSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSettingsPanel.swift; sourceTree = "<group>"; };
+		D6EB1C692F7C09A0002C6AAC /* LeaderboardPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardPanel.swift; sourceTree = "<group>"; };
+		D6EB1C6A2F7C09A0002C6AAC /* GameSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsPanel.swift; sourceTree = "<group>"; };
+		D6EB1C6C2F7C09A0002C6AAC /* LeaderboardEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardEntry.swift; sourceTree = "<group>"; };
+		D6EB1C6D2F7C09A0002C6AAC /* LeaderboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardManager.swift; sourceTree = "<group>"; };
+		D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D6EB1C702F7C09A0002C6AAC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D6EB1C722F7C09A0002C6AAC /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		D6EB1C732F7C09A0002C6AAC /* SoundEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
+		D6EB1C752F7C09A0002C6AAC /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
+		D6EB1C762F7C09A0002C6AAC /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		D6EB1C792F7C09A0002C6AAC /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		D6EB1C7A2F7C09A0002C6AAC /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		D6EB1C7B2F7C09A0002C6AAC /* NextPiecesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPiecesView.swift; sourceTree = "<group>"; };
+		D6EB1C7C2F7C09A0002C6AAC /* HoldPieceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoldPieceView.swift; sourceTree = "<group>"; };
+		D6EB1C7D2F7C09A0002C6AAC /* ScorePanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScorePanelView.swift; sourceTree = "<group>"; };
+		D6EB1C7E2F7C09A0002C6AAC /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D6EB1C802F7C09A0002C6AAC /* TetrominoTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TetrominoTypes.swift; sourceTree = "<group>"; };
+		D6EB1C812F7C09A0002C6AAC /* GameEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		D6EB1C822F7C09A0002C6AAC /* ScoreSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreSystem.swift; sourceTree = "<group>"; };
+		D6EB1C832F7C09A0002C6AAC /* GameSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		D6EB1C842F7C09A0002C6AAC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6EB1CA22F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XCODE_PROJECT_RECOVERY.md; sourceTree = "<group>"; };
+		D6EB1CA32F7C09BB002C6AAC /* ARCHITECTURE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ARCHITECTURE.md; sourceTree = "<group>"; };
+		D6EB1CA42F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COMPLETION_CHECKLIST.md; sourceTree = "<group>"; };
+		D6EB1CA52F7C09BB002C6AAC /* XCODE_FIX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XCODE_FIX.md; sourceTree = "<group>"; };
+		D6EB1CA62F7C09BB002C6AAC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		00000005 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00000001 = {
+			isa = PBXGroup;
+			children = (
+				D6EB1CA12F7C09BB002C6AAC /* docs */,
+				D6EB1C5B2F7C09A0002C6AAC /* NeonTetris */,
+				D6EB1C5A2F7C0966002C6AAC /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D6EB1C5A2F7C0966002C6AAC /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C592F7C0966002C6AAC /* NeonTetris.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D6EB1C5B2F7C09A0002C6AAC /* NeonTetris */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C5C2F7C09A0002C6AAC /* App */,
+				D6EB1C5E2F7C09A0002C6AAC /* Metal */,
+				D6EB1C612F7C09A0002C6AAC /* Resources */,
+				D6EB1C662F7C09A0002C6AAC /* Panels */,
+				D6EB1C6B2F7C09A0002C6AAC /* Leaderboard */,
+				D6EB1C6E2F7C09A0002C6AAC /* Shared */,
+				D6EB1C712F7C09A0002C6AAC /* Audio */,
+				D6EB1C742F7C09A0002C6AAC /* Theme */,
+				D6EB1C772F7C09A0002C6AAC /* Effects */,
+				D6EB1C782F7C09A0002C6AAC /* Views */,
+				D6EB1C7F2F7C09A0002C6AAC /* Engine */,
+				D6EB1C842F7C09A0002C6AAC /* Info.plist */,
+			);
+			path = NeonTetris;
+			sourceTree = "<group>";
+		};
+		D6EB1C5C2F7C09A0002C6AAC /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C5D2F7C09A0002C6AAC /* NeonTetris2App.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D6EB1C5E2F7C09A0002C6AAC /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C5F2F7C09A0002C6AAC /* ParticleTypes.swift */,
+				D6EB1C602F7C09A0002C6AAC /* ParticleSystem.swift */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
+		D6EB1C612F7C09A0002C6AAC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C622F7C09A0002C6AAC /* Music */,
+				D6EB1C632F7C09A0002C6AAC /* Assets.xcassets */,
+				D6EB1C642F7C09A0002C6AAC /* leaderboard.txt */,
+				D6EB1C652F7C09A0002C6AAC /* Sounds */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D6EB1C622F7C09A0002C6AAC /* Music */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		D6EB1C652F7C09A0002C6AAC /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		D6EB1C662F7C09A0002C6AAC /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C672F7C09A0002C6AAC /* AudioSettingsPanel.swift */,
+				D6EB1C682F7C09A0002C6AAC /* ThemeSettingsPanel.swift */,
+				D6EB1C692F7C09A0002C6AAC /* LeaderboardPanel.swift */,
+				D6EB1C6A2F7C09A0002C6AAC /* GameSettingsPanel.swift */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		D6EB1C6B2F7C09A0002C6AAC /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C6C2F7C09A0002C6AAC /* LeaderboardEntry.swift */,
+				D6EB1C6D2F7C09A0002C6AAC /* LeaderboardManager.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		D6EB1C6E2F7C09A0002C6AAC /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */,
+				D6EB1C702F7C09A0002C6AAC /* Extensions.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D6EB1C712F7C09A0002C6AAC /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C722F7C09A0002C6AAC /* MusicPlayer.swift */,
+				D6EB1C732F7C09A0002C6AAC /* SoundEngine.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		D6EB1C742F7C09A0002C6AAC /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C752F7C09A0002C6AAC /* ThemeConfig.swift */,
+				D6EB1C762F7C09A0002C6AAC /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		D6EB1C772F7C09A0002C6AAC /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		D6EB1C782F7C09A0002C6AAC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C792F7C09A0002C6AAC /* OverlayView.swift */,
+				D6EB1C7A2F7C09A0002C6AAC /* GameBoardView.swift */,
+				D6EB1C7B2F7C09A0002C6AAC /* NextPiecesView.swift */,
+				D6EB1C7C2F7C09A0002C6AAC /* HoldPieceView.swift */,
+				D6EB1C7D2F7C09A0002C6AAC /* ScorePanelView.swift */,
+				D6EB1C7E2F7C09A0002C6AAC /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D6EB1C7F2F7C09A0002C6AAC /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1C802F7C09A0002C6AAC /* TetrominoTypes.swift */,
+				D6EB1C812F7C09A0002C6AAC /* GameEngine.swift */,
+				D6EB1C822F7C09A0002C6AAC /* ScoreSystem.swift */,
+				D6EB1C832F7C09A0002C6AAC /* GameSettings.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		D6EB1CA12F7C09BB002C6AAC /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				D6EB1CA22F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md */,
+				D6EB1CA32F7C09BB002C6AAC /* ARCHITECTURE.md */,
+				D6EB1CA42F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md */,
+				D6EB1CA52F7C09BB002C6AAC /* XCODE_FIX.md */,
+				D6EB1CA62F7C09BB002C6AAC /* README.md */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00000002 /* NeonTetris */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 00000003 /* Build configuration list for PBXNativeTarget "NeonTetris" */;
+			buildPhases = (
+				00000004 /* Sources */,
+				00000005 /* Frameworks */,
+				00000006 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NeonTetris;
+			productName = NeonTetris;
+			productReference = D6EB1C592F7C0966002C6AAC /* NeonTetris.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		00000008 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					00000002 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 00000009 /* Build configuration list for PBXProject "NeonTetris" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 00000001;
+			productRefGroup = D6EB1C5A2F7C0966002C6AAC /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00000002 /* NeonTetris */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		00000006 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6EB1CAA2F7C09BB002C6AAC /* XCODE_FIX.md in Resources */,
+				D6EB1C892F7C09A0002C6AAC /* leaderboard.txt in Resources */,
+				D6EB1CA92F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md in Resources */,
+				D6EB1C882F7C09A0002C6AAC /* Assets.xcassets in Resources */,
+				D6EB1CA82F7C09BB002C6AAC /* ARCHITECTURE.md in Resources */,
+				D6EB1CAB2F7C09BB002C6AAC /* README.md in Resources */,
+				D6EB1CA72F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		00000004 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6EB1C8E2F7C09A0002C6AAC /* LeaderboardEntry.swift in Sources */,
+				D6EB1C942F7C09A0002C6AAC /* ThemeConfig.swift in Sources */,
+				D6EB1C9F2F7C09A0002C6AAC /* GameSettings.swift in Sources */,
+				D6EB1C9B2F7C09A0002C6AAC /* ContentView.swift in Sources */,
+				D6EB1C9A2F7C09A0002C6AAC /* ScorePanelView.swift in Sources */,
+				D6EB1C872F7C09A0002C6AAC /* ParticleSystem.swift in Sources */,
+				D6EB1C9E2F7C09A0002C6AAC /* ScoreSystem.swift in Sources */,
+				D6EB1C992F7C09A0002C6AAC /* HoldPieceView.swift in Sources */,
+				D6EB1C922F7C09A0002C6AAC /* MusicPlayer.swift in Sources */,
+				D6EB1C852F7C09A0002C6AAC /* NeonTetris2App.swift in Sources */,
+				D6EB1C9D2F7C09A0002C6AAC /* GameEngine.swift in Sources */,
+				D6EB1C972F7C09A0002C6AAC /* GameBoardView.swift in Sources */,
+				D6EB1C8C2F7C09A0002C6AAC /* LeaderboardPanel.swift in Sources */,
+				D6EB1C8A2F7C09A0002C6AAC /* AudioSettingsPanel.swift in Sources */,
+				D6EB1C982F7C09A0002C6AAC /* NextPiecesView.swift in Sources */,
+				D6EB1C902F7C09A0002C6AAC /* Constants.swift in Sources */,
+				D6EB1C862F7C09A0002C6AAC /* ParticleTypes.swift in Sources */,
+				D6EB1C962F7C09A0002C6AAC /* OverlayView.swift in Sources */,
+				D6EB1C952F7C09A0002C6AAC /* AppTheme.swift in Sources */,
+				D6EB1C8B2F7C09A0002C6AAC /* ThemeSettingsPanel.swift in Sources */,
+				D6EB1C8D2F7C09A0002C6AAC /* GameSettingsPanel.swift in Sources */,
+				D6EB1C912F7C09A0002C6AAC /* Extensions.swift in Sources */,
+				D6EB1C8F2F7C09A0002C6AAC /* LeaderboardManager.swift in Sources */,
+				D6EB1C932F7C09A0002C6AAC /* SoundEngine.swift in Sources */,
+				D6EB1C9C2F7C09A0002C6AAC /* TetrominoTypes.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0000000A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_LEVEL = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_VARS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = NeonTetris/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neontetris.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		0000000B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_LEVEL = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_VARS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = NeonTetris/Info.plist;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.neontetris.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		0000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_LEVEL = c99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_VARS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		0000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_LEVEL = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_VARS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		00000003 /* Build configuration list for PBXNativeTarget "NeonTetris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000000A /* Debug */,
+				0000000B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		00000009 /* Build configuration list for PBXProject "NeonTetris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0000000C /* Debug */,
+				0000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 00000008 /* Project object */;
+}
