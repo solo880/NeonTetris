@@ -46,7 +46,7 @@ class ParticleSystem: ObservableObject {
     }
 
     // MARK: - 添加粒子（自动限制上限）
-    private func add(_ newParticles: [Particle]) {
+    func add(_ newParticles: [Particle]) {
         let available = maxParticles - particles.count
         if available <= 0 { return }
         particles.append(contentsOf: newParticles.prefix(available))
@@ -130,27 +130,23 @@ class ParticleSystem: ObservableObject {
                 let cx = Float(CGFloat(col) * blockSize + blockSize / 2)
                 let cy = Float(CGFloat(row) * blockSize + blockSize / 2)
                 
-                // 燃烧火花：增加数量 1 倍（8 → 16），增加寿命 30%
-                let burnCountIncreased = ParticleConst.burnCount / 5 * 2  // 40 / 5 * 2 = 16
+                // 燃烧火花：数量 16，寿命使用 ParticleType 定义值（已调整为原 1.8 × 75% = 1.35s）
+                let burnCountIncreased = ParticleConst.burnCount / 5 * 2  // 16
                 for _ in 0..<burnCountIncreased {
                     var particle = ParticleFactory.burnSpark(x: cx, y: cy, color: colorScheme.colors.randomElement()!.simd4)
-                    // 增加寿命 30%
-                    particle.maxLife = particle.maxLife * 1.3
-                    particle.life = particle.maxLife
-                    // 分散程度保持不变（±30px）
+                    // 不再额外乘以 1.3，寿命已在 ParticleType.lifetime 中调整为 1.35s
+                    // 分散程度 ±30px
                     particle.position.x += CGFloat.random(in: -30...30)
                     particle.position.y += CGFloat.random(in: -30...30)
                     newParticles.append(particle)
                 }
                 
-                // 离子飞溅：增加数量 1 倍（4 → 8），增加寿命 30%
-                let splashCountIncreased = ParticleConst.splashCount / 5 * 2  // 20 / 5 * 2 = 8
+                // 离子飞溅：数量 8，寿命使用 ParticleType 定义值（已调整为原 2.0 × 75% = 1.5s）
+                let splashCountIncreased = ParticleConst.splashCount / 5 * 2  // 8
                 for _ in 0..<splashCountIncreased {
                     var particle = ParticleFactory.ionSplash(x: cx, y: cy, color: colorScheme.colors.randomElement()!.simd4)
-                    // 增加寿命 30%
-                    particle.maxLife = particle.maxLife * 1.3
-                    particle.life = particle.maxLife
-                    // 分散程度保持不变（±30px）
+                    // 不再额外乘以 1.3，寿命已在 ParticleType.lifetime 中调整为 1.5s
+                    // 分散程度 ±30px
                     particle.position.x += CGFloat.random(in: -30...30)
                     particle.position.y += CGFloat.random(in: -30...30)
                     newParticles.append(particle)
@@ -219,10 +215,77 @@ class ParticleSystem: ObservableObject {
         }
         add(newParticles)
     }
+    
+    // MARK: - 庆祝烟花（中心爆发）
+    func emitFireworkCelebration(centerX: Float, centerY: Float, isTop3: Bool) {
+        let colors: [Color] = [
+            Color(hex: "FFD700"), Color(hex: "FF375F"), Color(hex: "00F5FF"),
+            Color(hex: "30D158"), Color(hex: "BF5AF2"), Color(hex: "FF9F0A")
+        ]
+        var newParticles: [Particle] = []
+        
+        if isTop3 {
+            // 前三名：多轮爆发
+            for round in 0..<3 {
+                let delay = Float(round) * 0.3
+                let cx = centerX + Float.random(in: -50...50)
+                let cy = centerY + Float.random(in: -50...50)
+                let color = colors[round % colors.count].simd4
+                
+                for _ in 0..<40 {
+                    var p = ParticleFactory.firework(x: cx, y: cy, color: color)
+                    // 延迟爆发
+                    p.delay = delay
+                    newParticles.append(p)
+                }
+            }
+        } else {
+            // 普通上榜：单轮爆发
+            let color = colors.randomElement()!.simd4
+            for _ in 0..<30 {
+                newParticles.append(ParticleFactory.firework(x: centerX, y: centerY, color: color))
+            }
+        }
+        
+        add(newParticles)
+    }
+    
+    // MARK: - 鞭炮庆祝（全屏散布）
+    func emitFirecrackers(width: Float, height: Float) {
+        var newParticles: [Particle] = []
+        let colorScheme: [Color] = [
+            Color(hex: "FFD700"), Color(hex: "FF375F"), Color(hex: "FF9F0A")
+        ]
+        
+        // 限制鞭炮数量，避免粒子过多
+        let maxPositions = 6
+        let positions: [(Float, Float)] = (0..<maxPositions).map { i in
+            let t = Float(i) / Float(maxPositions)
+            return (width * t, height * Float.random(in: 0.2...0.8))
+        }
+        
+        for (cx, cy) in positions {
+            // 每个位置减少粒子数量（控制总数）
+            for _ in 0..<10 {
+                newParticles.append(
+                    ParticleFactory.firecracker(
+                        x: cx,
+                        y: cy,
+                        color: colorScheme.randomElement()!.simd4
+                    )
+                )
+            }
+        }
+        
+        add(newParticles)
+    }
 
     // MARK: - 鞭炮（排行榜4-10）
     func emitFirecrackers(in size: CGSize) {
         var newParticles: [Particle] = []
+        let colors: [Color] = [
+            Color(hex: "FFD700"), Color(hex: "FF375F"), Color(hex: "FF9F0A")
+        ]
         // 沿屏幕边缘串联爆炸
         let positions: [(Float, Float)] = (0..<8).map { i in
             let t = Float(i) / 8.0
@@ -230,7 +293,7 @@ class ParticleSystem: ObservableObject {
         }
         for (cx, cy) in positions {
             for _ in 0..<15 {
-                newParticles.append(ParticleFactory.firecracker(x: cx, y: cy, color: colorScheme.colors.randomElement()!.simd4))
+                newParticles.append(ParticleFactory.firecracker(x: cx, y: cy, color: colors.randomElement()!.simd4))
             }
         }
         add(newParticles)

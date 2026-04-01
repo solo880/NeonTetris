@@ -20,6 +20,8 @@
 		D6EB1C8F2F7C09A0002C6AAC /* LeaderboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6D2F7C09A0002C6AAC /* LeaderboardManager.swift */; };
 		D6EB1C902F7C09A0002C6AAC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */; };
 		D6EB1C912F7C09A0002C6AAC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C702F7C09A0002C6AAC /* Extensions.swift */; };
+		D6EB1CA12F7C09A0002C6AAC /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1CA02F7C09A0002C6AAC /* LocalizationManager.swift */; };
+		D6EB1C932F7C09A0002C6AAC /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C722F7C09A0002C6AAC /* LocalizationManager.swift */; };
 		D6EB1C922F7C09A0002C6AAC /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C722F7C09A0002C6AAC /* MusicPlayer.swift */; };
 		D6EB1C932F7C09A0002C6AAC /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C732F7C09A0002C6AAC /* SoundEngine.swift */; };
 		D6EB1C942F7C09A0002C6AAC /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C752F7C09A0002C6AAC /* ThemeConfig.swift */; };
@@ -34,12 +36,13 @@
 		D6EB1C9D2F7C09A0002C6AAC /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C812F7C09A0002C6AAC /* GameEngine.swift */; };
 		D6EB1C9E2F7C09A0002C6AAC /* ScoreSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C822F7C09A0002C6AAC /* ScoreSystem.swift */; };
 		D6EB1C9F2F7C09A0002C6AAC /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1C832F7C09A0002C6AAC /* GameSettings.swift */; };
-		D6EB1CA02F7C09A0002C6AAC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1C842F7C09A0002C6AAC /* Info.plist */; };
 		D6EB1CA72F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA22F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md */; };
 		D6EB1CA82F7C09BB002C6AAC /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA32F7C09BB002C6AAC /* ARCHITECTURE.md */; };
 		D6EB1CA92F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA42F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md */; };
 		D6EB1CAA2F7C09BB002C6AAC /* XCODE_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA52F7C09BB002C6AAC /* XCODE_FIX.md */; };
 		D6EB1CAB2F7C09BB002C6AAC /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CA62F7C09BB002C6AAC /* README.md */; };
+		D6EB1CB32F7C09A0002C6AAC /* CelebrationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EB1CB22F7C09A0002C6AAC /* CelebrationOverlayView.swift */; };
+		D6EB1CB12F7C09A0002C6AAC /* music in Resources */ = {isa = PBXBuildFile; fileRef = D6EB1CB02F7C09A0002C6AAC /* music */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,8 @@
 		D6EB1C6D2F7C09A0002C6AAC /* LeaderboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardManager.swift; sourceTree = "<group>"; };
 		D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D6EB1C702F7C09A0002C6AAC /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D6EB1CA02F7C09A0002C6AAC /* LocalizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		D6EB1C722F7C09A0002C6AAC /* LocalizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
 		D6EB1C722F7C09A0002C6AAC /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
 		D6EB1C732F7C09A0002C6AAC /* SoundEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
 		D6EB1C752F7C09A0002C6AAC /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
@@ -76,6 +81,8 @@
 		D6EB1CA32F7C09BB002C6AAC /* ARCHITECTURE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ARCHITECTURE.md; sourceTree = "<group>"; };
 		D6EB1CA42F7C09BB002C6AAC /* COMPLETION_CHECKLIST.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COMPLETION_CHECKLIST.md; sourceTree = "<group>"; };
 		D6EB1CA52F7C09BB002C6AAC /* XCODE_FIX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XCODE_FIX.md; sourceTree = "<group>"; };
+		D6EB1CB02F7C09A0002C6AAC /* music */ = {isa = PBXFileReference; lastKnownFileType = folder; path = music; sourceTree = "<group>"; };
+		D6EB1CB22F7C09A0002C6AAC /* CelebrationOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CelebrationOverlayView.swift; sourceTree = "<group>"; };
 		D6EB1CA62F7C09BB002C6AAC /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +155,7 @@
 			children = (
 				D6EB1C622F7C09A0002C6AAC /* Music */,
 				D6EB1C632F7C09A0002C6AAC /* Assets.xcassets */,
+				D6EB1CB02F7C09A0002C6AAC /* music */,
 				D6EB1C642F7C09A0002C6AAC /* leaderboard.txt */,
 				D6EB1C652F7C09A0002C6AAC /* Sounds */,
 			);
@@ -193,6 +201,8 @@
 			children = (
 				D6EB1C6F2F7C09A0002C6AAC /* Constants.swift */,
 				D6EB1C702F7C09A0002C6AAC /* Extensions.swift */,
+				D6EB1CA02F7C09A0002C6AAC /* LocalizationManager.swift */,
+				D6EB1C722F7C09A0002C6AAC /* LocalizationManager.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -231,6 +241,7 @@
 				D6EB1C7C2F7C09A0002C6AAC /* HoldPieceView.swift */,
 				D6EB1C7D2F7C09A0002C6AAC /* ScorePanelView.swift */,
 				D6EB1C7E2F7C09A0002C6AAC /* ContentView.swift */,
+				D6EB1CB22F7C09A0002C6AAC /* CelebrationOverlayView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -287,6 +298,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = zhjw;
 				TargetAttributes = {
 					00000002 = {
 						CreatedOnToolsVersion = 15.0;
@@ -300,6 +312,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 00000001;
 			productRefGroup = D6EB1C5A2F7C0966002C6AAC /* Products */;
@@ -322,6 +335,7 @@
 				D6EB1C882F7C09A0002C6AAC /* Assets.xcassets in Resources */,
 				D6EB1CA82F7C09BB002C6AAC /* ARCHITECTURE.md in Resources */,
 				D6EB1CAB2F7C09BB002C6AAC /* README.md in Resources */,
+				D6EB1CB12F7C09A0002C6AAC /* music in Resources */,
 				D6EB1CA72F7C09BB002C6AAC /* XCODE_PROJECT_RECOVERY.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -355,6 +369,9 @@
 				D6EB1C8B2F7C09A0002C6AAC /* ThemeSettingsPanel.swift in Sources */,
 				D6EB1C8D2F7C09A0002C6AAC /* GameSettingsPanel.swift in Sources */,
 				D6EB1C912F7C09A0002C6AAC /* Extensions.swift in Sources */,
+				D6EB1CA12F7C09A0002C6AAC /* LocalizationManager.swift in Sources */,
+				D6EB1CB32F7C09A0002C6AAC /* CelebrationOverlayView.swift in Sources */,
+				D6EB1C932F7C09A0002C6AAC /* LocalizationManager.swift in Sources */,
 				D6EB1C8F2F7C09A0002C6AAC /* LeaderboardManager.swift in Sources */,
 				D6EB1C932F7C09A0002C6AAC /* SoundEngine.swift in Sources */,
 				D6EB1C9C2F7C09A0002C6AAC /* TetrominoTypes.swift in Sources */,
@@ -368,6 +385,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = de01;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -395,6 +415,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = NeonTetris/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = "";
+				"MARKETING_VERSION[sdk=macosx*]" = 10.0.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -411,6 +433,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = Ne01;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_DIALECT = "c++20";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -432,6 +457,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = NeonTetris/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = "";
+				"MARKETING_VERSION[sdk=macosx*]" = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.neontetris.app;

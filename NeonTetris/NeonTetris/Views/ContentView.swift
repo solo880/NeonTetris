@@ -12,6 +12,8 @@ struct ContentView: View {
     @StateObject private var settings = GameSettings()
     @StateObject private var particles = ParticleSystem()
     @StateObject private var leaderboard = LeaderboardManager.shared
+    @StateObject private var localization = LocalizationManager.shared
+    @StateObject private var celebration = CelebrationSystem()  // 独立庆祝粒子层
     
     @State private var soundEngine: SoundEngine?
     @State private var musicPlayer: MusicPlayer?
@@ -42,13 +44,13 @@ struct ContentView: View {
                     ScorePanelView(engine: engine, theme: theme)
                     
                     Button(action: { showSettings = true }) {
-                        Label("游戏设置", systemImage: "gearshape")
+                        Label(localization.t("游戏设置", "Settings"), systemImage: "gearshape")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
                     
                     Button(action: { showLeaderboard = true }) {
-                        Label("排行榜", systemImage: "trophy")
+                        Label(localization.t("排行榜", "Leaderboard"), systemImage: "trophy")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
@@ -62,10 +64,18 @@ struct ContentView: View {
                 
                 // 中心：游戏板
                 ZStack {
-                    GameBoardView(engine: engine, theme: theme, particles: particles)
+                    GameBoardView(engine: engine, theme: theme, particles: particles, settings: settings)
                     
                     // 游戏状态覆盖
-                    OverlayView(engine: engine, theme: theme, onStart: startGame)
+                    OverlayView(
+                        engine: engine,
+                        theme: theme,
+                        particles: particles,
+                        leaderboard: leaderboard,
+                        localization: LocalizationManager.shared,
+                        celebrationSystem: celebration,
+                        onStart: startGame
+                    )
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
@@ -73,14 +83,22 @@ struct ContentView: View {
                 VStack(spacing: 15) {
                     NextPiecesView(engine: engine, theme: theme)
                     
+                    Button(action: {
+                        localization.language = localization.language == .chinese ? .english : .chinese
+                    }) {
+                        Label(localization.language == .chinese ? "English" : "中文", systemImage: "globe")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.bordered)
+                    
                     Button(action: { showAudioSettings = true }) {
-                        Label("音频", systemImage: "speaker.wave.2")
+                        Label(localization.t("音频", "Audio"), systemImage: "speaker.wave.2")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
                     
                     Button(action: { showThemeSettings = true }) {
-                        Label("主题", systemImage: "paintbrush")
+                        Label(localization.t("主题", "Theme"), systemImage: "paintbrush")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(.bordered)
@@ -93,6 +111,9 @@ struct ContentView: View {
                 .cornerRadius(12)
             }
             .padding(20)
+            
+            // 🎆 最顶层：全屏庆祝粒子层（独立于游戏粒子）
+            CelebrationOverlayView(system: celebration)
         }
         .environmentObject(engine)
         .environmentObject(theme)

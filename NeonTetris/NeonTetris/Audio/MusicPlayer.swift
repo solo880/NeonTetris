@@ -27,6 +27,12 @@ class MusicPlayer: ObservableObject {
 
     // MARK: - 加载内置 BGM
     func loadBuiltinBGM() {
+        // 优先加载《芒种》
+        if let url = Bundle.main.url(forResource: "《芒种》", withExtension: "mp3", subdirectory: "music") {
+            load(url: url, name: "《芒种》")
+            return
+        }
+        // 备用：Bundle 内置 BGM
         if let url = Bundle.main.url(forResource: "bgm_default", withExtension: "mp3",
                                       subdirectory: "Music") {
             load(url: url, name: "内置 BGM")

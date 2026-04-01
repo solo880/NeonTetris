@@ -204,7 +204,8 @@ struct CelebrationPanel: View {
                         mass: ParticleType.firework.mass,
                         friction: ParticleType.firework.friction,
                         noiseOffset: Float.random(in: 0...100),
-                        turbulence: ParticleType.firework.turbulence
+                        turbulence: ParticleType.firework.turbulence,
+                        delay: 0
                     ))
                 }
             }
@@ -234,7 +235,8 @@ struct CelebrationPanel: View {
                         mass: ParticleType.firecracker.mass,
                         friction: ParticleType.firecracker.friction,
                         noiseOffset: Float.random(in: 0...100),
-                        turbulence: ParticleType.firecracker.turbulence
+                        turbulence: ParticleType.firecracker.turbulence,
+                        delay: 0
                     ))
                 }
             }

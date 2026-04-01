@@ -1,6 +1,6 @@
 // ============================================================
 // GameSettings.swift — 游戏设置数据模型
-// 负责：等级/速度/音效/音乐设置的持久化存储
+// 负责：等级/速度/音效/音乐/网格/幽灵方块设置的持久化存储
 // ============================================================
 
 import SwiftUI
@@ -17,6 +17,16 @@ class GameSettings: ObservableObject {
     /// 下落速度倍率（1-10，叠加在等级速度上）
     @Published var speedMultiplier: Int {
         didSet { UserDefaults.standard.set(speedMultiplier, forKey: "speedMultiplier") }
+    }
+    
+    // MARK: 视图设置
+    /// 网格线开关
+    @Published var showGrid: Bool {
+        didSet { UserDefaults.standard.set(showGrid, forKey: "showGrid") }
+    }
+    /// 幽灵方块开关
+    @Published var showGhostPiece: Bool {
+        didSet { UserDefaults.standard.set(showGhostPiece, forKey: "showGhostPiece") }
     }
 
     // MARK: 音效设置
@@ -48,6 +58,8 @@ class GameSettings: ObservableObject {
         let ud = UserDefaults.standard
         self.startLevel       = ud.object(forKey: "startLevel")       as? Int   ?? 1
         self.speedMultiplier  = ud.object(forKey: "speedMultiplier")  as? Int   ?? 5
+        self.showGrid         = ud.object(forKey: "showGrid")          as? Bool  ?? true
+        self.showGhostPiece  = ud.object(forKey: "showGhostPiece")   as? Bool  ?? true
         self.soundEnabled     = ud.object(forKey: "soundEnabled")     as? Bool  ?? true
         self.soundVolume      = ud.object(forKey: "soundVolume")      as? Float ?? 0.8
         self.musicEnabled     = ud.object(forKey: "musicEnabled")     as? Bool  ?? true
@@ -59,6 +71,8 @@ class GameSettings: ObservableObject {
     func resetToDefaults() {
         startLevel      = 1
         speedMultiplier = 5
+        showGrid        = true
+        showGhostPiece  = true
         soundEnabled    = true
         soundVolume     = 0.8
         musicEnabled    = true

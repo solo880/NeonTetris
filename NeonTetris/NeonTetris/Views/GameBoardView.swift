@@ -10,6 +10,7 @@ struct GameBoardView: View {
     @ObservedObject var engine: GameEngine
     @ObservedObject var theme: AppTheme
     @ObservedObject var particles: ParticleSystem
+    @ObservedObject var settings: GameSettings
     
     @State private var displayTimer: Timer?
     
@@ -21,20 +22,22 @@ struct GameBoardView: View {
             Canvas { context, size in
                 let blockSize = GameConst.blockSize
                 
-                // 绘制网格线
-                for row in 0...GameConst.rows {
-                    let y = CGFloat(row) * blockSize
-                    var path = Path()
-                    path.move(to: CGPoint(x: 0, y: y))
-                    path.addLine(to: CGPoint(x: GameConst.boardW, y: y))
-                    context.stroke(path, with: .color(theme.config.gridLineColor.opacity(0.3)), lineWidth: 0.5)
-                }
-                for col in 0...GameConst.cols {
-                    let x = CGFloat(col) * blockSize
-                    var path = Path()
-                    path.move(to: CGPoint(x: x, y: 0))
-                    path.addLine(to: CGPoint(x: x, y: GameConst.boardH))
-                    context.stroke(path, with: .color(theme.config.gridLineColor.opacity(0.3)), lineWidth: 0.5)
+                // 绘制网格线（根据设置开关）
+                if settings.showGrid {
+                    for row in 0...GameConst.rows {
+                        let y = CGFloat(row) * blockSize
+                        var path = Path()
+                        path.move(to: CGPoint(x: 0, y: y))
+                        path.addLine(to: CGPoint(x: GameConst.boardW, y: y))
+                        context.stroke(path, with: .color(theme.config.gridLineColor.opacity(0.3)), lineWidth: 0.5)
+                    }
+                    for col in 0...GameConst.cols {
+                        let x = CGFloat(col) * blockSize
+                        var path = Path()
+                        path.move(to: CGPoint(x: x, y: 0))
+                        path.addLine(to: CGPoint(x: x, y: GameConst.boardH))
+                        context.stroke(path, with: .color(theme.config.gridLineColor.opacity(0.3)), lineWidth: 0.5)
+                    }
                 }
                 
                 // 绘制已锁定的方块
@@ -47,8 +50,8 @@ struct GameBoardView: View {
                     }
                 }
                 
-                // 绘制幽灵方块（预览）
-                if let ghost = engine.ghostPiece {
+                // 绘制幽灵方块（预览，根据设置开关）
+                if settings.showGhostPiece, let ghost = engine.ghostPiece {
                     for block in ghost.blocks {
                         if block.y >= 0 {
                             drawGhostBlock(at: (block.x, block.y), in: context, blockSize: blockSize, theme: theme)
@@ -211,13 +214,33 @@ struct KeyboardEventHandler: NSViewRepresentable {
         return view
     }
     
-    func updateNSView(_ nsView: NSView, context: Context) {}
+    func updateNSView(_ nsView: NSView, context: Context) {
+        // 只在没有 sheet/对话框时才抢占焦点，避免干扰输入框
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            guard let window = nsView.window else { return }
+            // 如果当前焦点是文本输入框，不抢占
+            if window.firstResponder is NSText { return }
+            if window.firstResponder is NSTextField { return }
+            if window.firstResponder !== nsView {
+                window.makeFirstResponder(nsView)
+            }
+        }
+    }
 }
 
 class KeyboardView: NSView {
     var onKeyDown: ((String) -> Void)?
     
     override var acceptsFirstResponder: Bool { true }
+    
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        if window != nil {
+            DispatchQueue.main.async { [weak self] in
+                self?.window?.makeFirstResponder(self)
+            }
+        }
+    }
     
     override func keyDown(with event: NSEvent) {
         let characters = event.characters ?? ""
@@ -228,5 +251,5 @@ class KeyboardView: NSView {
 }
 
 #Preview {
-    GameBoardView(engine: GameEngine(), theme: AppTheme(), particles: ParticleSystem())
+    GameBoardView(engine: GameEngine(), theme: AppTheme(), particles: ParticleSystem(), settings: GameSettings())
 }

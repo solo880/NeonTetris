@@ -64,6 +64,27 @@ class LeaderboardManager: ObservableObject {
         if entries.count < GameConst.leaderboardMax { return true }
         return score > (entries.last?.score ?? 0)
     }
+    
+    // MARK: - 获取分数的排名（1-based，nil 表示未进榜）
+    func getRank(score: Int) -> Int? {
+        var rank = 1
+        for entry in entries {
+            if score >= entry.score {
+                return rank
+            }
+            rank += 1
+        }
+        // 如果榜单未满，也在榜内
+        if entries.count < GameConst.leaderboardMax {
+            return rank
+        }
+        return nil
+    }
+    
+    // MARK: - 获取排行榜长度
+    var count: Int {
+        entries.count
+    }
 
     // MARK: - 清空排行榜
     func clear() {

@@ -135,8 +135,8 @@ enum ParticleType: String, CaseIterable {
         case .ionTrail:      return 1.5
         case .airFlow:       return 1.0
         case .spinOut:       return 1.2
-        case .burnSpark:     return 1.8
-        case .ionSplash:     return 2.0
+        case .burnSpark:     return 1.35  // 减少到 75%（原 1.8）
+        case .ionSplash:     return 1.5   // 减少到 75%（原 2.0）
         case .lockFlash:     return 0.6
         case .hardDropTrail: return 1.2
         case .firework:      return 4.0
@@ -165,8 +165,8 @@ enum ParticleType: String, CaseIterable {
         case .ionTrail:      return 80.0
         case .airFlow:       return 150.0
         case .spinOut:       return 250.0
-        case .burnSpark:     return 120.0
-        case .ionSplash:     return 300.0
+        case .burnSpark:     return 180.0  // 增加 50%（原 120）
+        case .ionSplash:     return 450.0  // 增加 50%（原 300）
         case .lockFlash:     return 50.0
         case .hardDropTrail: return 180.0
         case .firework:      return 400.0
@@ -195,8 +195,8 @@ enum ParticleType: String, CaseIterable {
         case .ionTrail:      return 0.94
         case .airFlow:       return 0.92
         case .spinOut:       return 0.90
-        case .burnSpark:     return 0.92
-        case .ionSplash:     return 0.91
+        case .burnSpark:     return 0.88  // 速度衰减增加 50%（原 0.92）
+        case .ionSplash:     return 0.87  // 速度衰减增加 50%（原 0.91）
         case .lockFlash:     return 0.97
         case .hardDropTrail: return 0.93
         case .firework:      return 0.99
@@ -236,6 +236,7 @@ struct Particle {
     var friction: Float        // 摩擦系数（0-1）
     var noiseOffset: Float     // 噪声偏移（用于Perlin噪声）
     var turbulence: Float      // 湍流强度
+    var delay: Float           // 延迟显示时间（秒）
     
     // 生命周期进度（0-1）
     var lifeProgress: Float {
@@ -244,11 +245,17 @@ struct Particle {
     
     // 是否存活
     var isAlive: Bool {
-        life > 0
+        life > 0 && delay <= 0
     }
     
     // 更新粒子（物理模拟 + 噪声扰动）
     mutating func update(deltaTime: Float, perlin: PerlinNoise, windForce: CGVector = CGVector(dx: 0, dy: 0)) {
+        // 处理延迟
+        if delay > 0 {
+            delay -= deltaTime
+            return
+        }
+        
         life -= deltaTime
         
         // ========== 大方向：符合物理 ==========
@@ -263,8 +270,8 @@ struct Particle {
             case .ionTrail:      return 0.2 * mass
             case .airFlow:       return 0.3 * mass
             case .spinOut:       return 0.25 * mass
-            case .burnSpark:     return 0.4 * mass
-            case .ionSplash:     return 0.35 * mass
+            case .burnSpark:     return 0.65 * mass  // 轻微偏中等重力（原 0.4）
+            case .ionSplash:     return 0.55 * mass  // 轻微偏中等重力（原 0.35）
             case .lockFlash:     return 0.02 * mass
             case .hardDropTrail: return 0.3 * mass
             case .firework:      return -0.25 * mass
@@ -348,7 +355,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -372,7 +380,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -399,7 +408,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -426,7 +436,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -453,7 +464,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -478,7 +490,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -503,7 +516,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -530,7 +544,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
     
@@ -557,7 +572,8 @@ enum ParticleFactory {
             mass: type.mass,
             friction: type.friction,
             noiseOffset: Float.random(in: 0...100),
-            turbulence: type.turbulence
+            turbulence: type.turbulence,
+            delay: 0
         )
     }
 }
