@@ -15,7 +15,7 @@ class LeaderboardManager: ObservableObject {
     // txt 文件路径（存放在 Application Support）
     private var filePath: URL {
         let dir = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
-        let appDir = dir.appendingPathComponent("NeonTetris2", isDirectory: true)
+        let appDir = dir.appendingPathComponent("NeonTetris", isDirectory: true)
         try? FileManager.default.createDirectory(at: appDir, withIntermediateDirectories: true)
         return appDir.appendingPathComponent("leaderboard.txt")
     }
@@ -39,7 +39,7 @@ class LeaderboardManager: ObservableObject {
 
     // MARK: - 保存排行榜
     private func save() {
-        let header = "# NeonTetris2 排行榜\n# 格式：名称|分数|等级|行数|时间戳\n"
+        let header = "# NeonTetris 排行榜\n# 格式：名称|分数|等级|行数|时间戳\n"
         let lines = entries.map { $0.txtLine }.joined(separator: "\n")
         try? (header + lines).write(to: filePath, atomically: true, encoding: .utf8)
     }

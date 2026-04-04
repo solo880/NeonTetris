@@ -149,10 +149,10 @@ struct GameBoardView: View {
     
     private func handleKeyPress(_ key: String) {
         switch key {
-        case "a", "A": engine.moveLeft()
-        case "d", "D": engine.moveRight()
-        case "w", "W": engine.rotate()
-        case "s", "S": engine.softDrop()
+        case "a", "A","ArrowLeft": engine.moveLeft()
+        case "d", "D","ArrowRight": engine.moveRight()
+        case "w", "W","ArrowUp": engine.rotate()
+        case "s", "S","ArrowDown": engine.softDrop()
         case " ": engine.hardDrop()
         case "c", "C": engine.holdPiece()
         case "p", "P": engine.togglePause()
@@ -243,9 +243,24 @@ class KeyboardView: NSView {
     }
     
     override func keyDown(with event: NSEvent) {
-        let characters = event.characters ?? ""
-        for char in characters {
-            onKeyDown?(String(char))
+        // 使用 keyCode 来识别箭头键
+        let keyCode = event.keyCode
+        
+        switch keyCode {
+        case 123: // Left arrow
+            onKeyDown?("ArrowLeft")
+        case 124: // Right arrow
+            onKeyDown?("ArrowRight")
+        case 125: // Down arrow
+            onKeyDown?("ArrowDown")
+        case 126: // Up arrow
+            onKeyDown?("ArrowUp")
+        default:
+            // 其他键使用 characters
+            let characters = event.characters ?? ""
+            for char in characters {
+                onKeyDown?(String(char))
+            }
         }
     }
 }

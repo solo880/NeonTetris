@@ -53,6 +53,16 @@ class GameEngine: ObservableObject {
     @Published var level: Int = 1
     @Published var lines: Int = 0          // 总消行数
     @Published var gameState: GameState = .idle
+    
+    // MARK: - 计算属性
+    /// 当前下落间隔（秒）
+    var currentDropInterval: Double {
+        ScoreSystem.tickInterval(level: level, speedMultiplier: settings.speedMultiplier)
+    }
+    /// 当前速度（格/秒）
+    var currentSpeed: Double {
+        1.0 / currentDropInterval
+    }
 
     // MARK: - 消行动画状态
     @Published var clearingRows: [Int] = []         // 正在消除的行索引

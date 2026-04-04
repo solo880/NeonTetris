@@ -1,6 +1,6 @@
 // ============================================================
 // ThemeSettingsPanel.swift — 主题设置面板
-// 负责：暗色/亮色/自定义主题切换和编辑
+// 负责：暗色/亮色/自定义主题切换和编辑，支持中英文
 // ============================================================
 
 import SwiftUI
@@ -8,14 +8,15 @@ import SwiftUI
 struct ThemeSettingsPanel: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var theme: AppTheme
+    @ObservedObject var localization = LocalizationManager.shared
     
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("主题设置")
+                Text(localization.t("主题设置", "Theme Settings"))
                     .font(.headline)
                 Spacer()
-                Button("关闭") { dismiss() }
+                Button(localization.t("关闭", "Close")) { dismiss() }
             }
             .padding(.horizontal)
             
@@ -23,13 +24,13 @@ struct ThemeSettingsPanel: View {
                 VStack(spacing: 20) {
                     // 预设主题选择
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("预设主题")
+                        Text(localization.t("预设主题", "Preset Themes"))
                             .font(.subheadline)
                             .fontWeight(.semibold)
                         
-                        Picker("主题", selection: $theme.mode) {
+                        Picker(localization.t("主题", "Theme"), selection: $theme.mode) {
                             ForEach(ThemeMode.allCases, id: \.self) { mode in
-                                Text(mode.rawValue).tag(mode)
+                                Text(themeModeName(mode)).tag(mode)
                             }
                         }
                         .pickerStyle(.segmented)
@@ -41,21 +42,21 @@ struct ThemeSettingsPanel: View {
                     // 自定义颜色编辑
                     if theme.mode == .custom {
                         VStack(alignment: .leading, spacing: 15) {
-                            Text("自定义颜色")
+                            Text(localization.t("自定义颜色", "Custom Colors"))
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             
-                            ColorPickerRow(label: "背景色", hex: $theme.customConfig.backgroundColorHex)
+                            ColorPickerRow(label: localization.t("背景色", "Background"), hex: $theme.customConfig.backgroundColorHex)
                             Divider()
-                            ColorPickerRow(label: "棋盘色", hex: $theme.customConfig.boardColorHex)
+                            ColorPickerRow(label: localization.t("棋盘色", "Board"), hex: $theme.customConfig.boardColorHex)
                             Divider()
-                            ColorPickerRow(label: "网格线", hex: $theme.customConfig.gridLineColorHex)
+                            ColorPickerRow(label: localization.t("网格线", "Grid Lines"), hex: $theme.customConfig.gridLineColorHex)
                             Divider()
-                            ColorPickerRow(label: "强调色", hex: $theme.customConfig.accentColorHex)
+                            ColorPickerRow(label: localization.t("强调色", "Accent"), hex: $theme.customConfig.accentColorHex)
                             Divider()
-                            ColorPickerRow(label: "文字色", hex: $theme.customConfig.textColorHex)
+                            ColorPickerRow(label: localization.t("文字色", "Text"), hex: $theme.customConfig.textColorHex)
                             Divider()
-                            ColorPickerRow(label: "面板色", hex: $theme.customConfig.panelColorHex)
+                            ColorPickerRow(label: localization.t("面板色", "Panel"), hex: $theme.customConfig.panelColorHex)
                         }
                         .padding()
                         .background(Color(.controlBackgroundColor))
@@ -63,13 +64,13 @@ struct ThemeSettingsPanel: View {
                         
                         // 粒子配色方案
                         VStack(alignment: .leading, spacing: 10) {
-                            Text("粒子配色")
+                            Text(localization.t("粒子配色", "Particle Colors"))
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
                             
-                            Picker("方案", selection: $theme.customConfig.particleScheme) {
+                            Picker(localization.t("方案", "Scheme"), selection: $theme.customConfig.particleScheme) {
                                 ForEach(ParticleColorScheme.allCases, id: \.self) { scheme in
-                                    Text(scheme.rawValue).tag(scheme)
+                                    Text(particleSchemeName(scheme)).tag(scheme)
                                 }
                             }
                             .pickerStyle(.segmented)
@@ -80,23 +81,16 @@ struct ThemeSettingsPanel: View {
                         
                         // 操作按钮
                         VStack(spacing: 10) {
-                            Button("应用自定义主题") {
-                                theme.applyCustom()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(10)
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(6)
+                            BlockButton(
+                                label: localization.t("应用自定义主题", "Apply Custom Theme"),
+                                color: .blockI,
+                                action: { theme.applyCustom() }
+                            )
                             
-                            Button("重置为暗色", role: .destructive) {
-                                theme.resetCustomToDark()
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding(10)
-                            .background(Color.red.opacity(0.2))
-                            .foregroundColor(.red)
-                            .cornerRadius(6)
+                            DestructiveBlockButton(
+                                label: localization.t("重置为暗色", "Reset to Dark"),
+                                action: { theme.resetCustomToDark() }
+                            )
                         }
                         .padding()
                     }
@@ -107,6 +101,25 @@ struct ThemeSettingsPanel: View {
             }
         }
         .frame(width: 500, height: 700)
+    }
+    
+    private func themeModeName(_ mode: ThemeMode) -> String {
+        switch mode {
+        case .dark: return localization.t("暗色", "Dark")
+        case .light: return localization.t("亮色", "Light")
+        case .custom: return localization.t("自定义", "Custom")
+        }
+    }
+    
+    private func particleSchemeName(_ scheme: ParticleColorScheme) -> String {
+        switch scheme {
+        case .neon: return localization.t("霓虹", "Neon")
+        case .fire: return localization.t("火焰", "Fire")
+        case .ice: return localization.t("冰晶", "Ice")
+        case .rainbow: return localization.t("彩虹", "Rainbow")
+        case .gold: return localization.t("黄金", "Gold")
+        case .custom: return localization.t("自定义", "Custom")
+        }
     }
 }
 

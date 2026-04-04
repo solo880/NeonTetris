@@ -12,6 +12,7 @@ struct OverlayView: View {
     @ObservedObject var leaderboard: LeaderboardManager
     @ObservedObject var localization: LocalizationManager
     @ObservedObject var celebrationSystem: CelebrationSystem
+    var soundEngine: SoundEngine?
     var onStart: () -> Void
     
     @State private var showNameInput = false
@@ -67,34 +68,40 @@ struct OverlayView: View {
         VStack(spacing: 30) {
             Text(localization.t("霓虹俄罗斯方块", "Neon Tetris"))
                 .font(.system(size: 48, weight: .bold, design: .default))
-                .foregroundStyle(.linearGradient(colors: [.orange,.blue,.purple,.green,.red], startPoint: .topTrailing, endPoint: .bottomTrailing))
-            
-            VStack(spacing: 10) {
+                .foregroundStyle(.linearGradient(colors: [.orange,.blue,.purple,.green,.red], startPoint: .trailing, endPoint: .bottomLeading))
+                .shadow(color: .white, radius: 0, x: 1, y: 1)
+                .shadow(color: .white, radius: 0, x: -1, y: -1)
+                .shadow(color: .white, radius: 0, x: 1, y: -1)
+                .shadow(color: .white, radius: 0, x: -1, y: 1)
+            VStack(alignment: .center,spacing: 10) {
                 Text(localization.t("快捷键", "Controls"))
                     .font(.headline)
-                    .foregroundColor(theme.config.textColor)
-                
-                VStack(alignment: .leading, spacing: 5) {
-                    Text(localization.t("← → 移动 | ↑ 旋转 | ↓ 软降", "← → Move | ↑ Rotate | ↓ Soft Drop"))
+                    .foregroundColor(.white)
+                    .shadow(color: .black, radius: 0, x: 1, y: 1)
+                    .shadow(color: .black, radius: 0, x: -1, y: -1)
+                    .shadow(color: .black, radius: 0, x: 1, y: -1)
+                    .shadow(color: .black, radius: 0, x: -1, y: 1)
+                VStack(spacing: 5) {
+                    Text(localization.t("←或a 左移动 | →或d 右移动 | ↑或w 旋转 | ↓或s软降", "← or a Left Move | → or d Right Move | ↑ or w Rotate | ↓ or s Soft Drop"))
                     Text(localization.t("Space 硬降 | C 暂存 | P 暂停", "Space Hard Drop | C Hold | P Pause"))
                 }
                 .font(.caption)
-                .foregroundColor(theme.config.textColor.opacity(0.7))
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 0, x: 1, y: 1)
+                .shadow(color: .black, radius: 0, x: -1, y: -1)
+                .shadow(color: .black, radius: 0, x: 1, y: -1)
+                .shadow(color: .black, radius: 0, x: -1, y: 1)
             }
             
-            Button(action: onStart) {
-                Text(localization.t("开始游戏", "Start Game"))
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(theme.config.accentColor)
-                    .foregroundColor(.black)
-                    .cornerRadius(8)
-            }
+            BlockButton(
+                label: localization.t("开始游戏", "Start Game"),
+                color: .blockS,
+                action: onStart
+            )
             .frame(width: 200)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.7))
+        .background(Color.black.opacity(0.4))
     }
     
     private var pauseScreen: some View {
@@ -102,20 +109,23 @@ struct OverlayView: View {
             Text(localization.t("暂停", "Paused"))
                 .font(.system(size: 48, weight: .bold))
                 .foregroundColor(theme.config.accentColor)
-            
-            Button(action: { engine.togglePause() }) {
-                Text(localization.t("继续游戏", "Resume"))
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(theme.config.accentColor)
-                    .foregroundColor(.black)
-                    .cornerRadius(8)
-            }
+                .shadow(color: .white, radius: 0, x: 1, y: 1)
+                .shadow(color: .white, radius: 0, x: -1, y: -1)
+                .shadow(color: .white, radius: 0, x: 1, y: -1)
+                .shadow(color: .white, radius: 0, x: -1, y: 1)
+            BlockButton(
+                label: localization.t("继续游戏", "Resume"),
+                color: .blockJ,
+                action: { engine.togglePause() }
+            )
             .frame(width: 200)
+            .shadow(color: .white, radius: 0, x: 1, y: 1)
+            .shadow(color: .white, radius: 0, x: -1, y: -1)
+            .shadow(color: .white, radius: 0, x: 1, y: -1)
+            .shadow(color: .white, radius: 0, x: -1, y: 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black.opacity(0.7))
+        .background(Color.black.opacity(0.4))
     }
     
     private var gameOverScreen: some View {
@@ -149,15 +159,11 @@ struct OverlayView: View {
             .background(theme.config.panelColor)
             .cornerRadius(8)
             
-            Button(action: onStart) {
-                Text(localization.t("重新开始", "Restart"))
-                    .font(.headline)
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .background(theme.config.accentColor)
-                    .foregroundColor(.black)
-                    .cornerRadius(8)
-            }
+            BlockButton(
+                label: localization.t("重新开始", "Restart"),
+                color: .blockL,
+                action: onStart
+            )
             .keyboardShortcut("r")
             .frame(width: 200)
         }
@@ -203,17 +209,22 @@ struct OverlayView: View {
             .padding()
             
             HStack(spacing: 15) {
-                Button(localization.t("取消", "Cancel")) {
-                    showNameInput = false
-                }
+                BlockButton(
+                    label: localization.t("取消", "Cancel"),
+                    color: .gray,
+                    action: { showNameInput = false }
+                )
                 .keyboardShortcut(.cancelAction)
                 
-                Button(localization.t("确认", "Confirm")) {
-                    submitScore()
-                }
+                BlockButton(
+                    label: localization.t("确认", "Confirm"),
+                    color: .blockO,
+                    action: { submitScore() }
+                )
                 .keyboardShortcut(.defaultAction)
                 .disabled(playerName.isEmpty)
             }
+            .frame(width: 280)
         }
         .padding(30)
         .background(theme.config.panelColor)
@@ -249,11 +260,12 @@ struct OverlayView: View {
         guard !celebrationTriggered else { return }
         celebrationTriggered = true
         
-        // 使用独立的全屏庆祝层
+        // 使用独立的全屏庆祝层（自动获取屏幕尺寸）
         CelebrationTrigger.trigger(
             rank: rank,
             system: celebrationSystem,
-            screenSize: screenSize
+            playerName: playerName,
+            soundEngine: soundEngine
         )
     }
 }
@@ -266,6 +278,7 @@ struct OverlayView: View {
         leaderboard: LeaderboardManager.shared,
         localization: LocalizationManager.shared,
         celebrationSystem: CelebrationSystem(),
+        soundEngine: nil,
         onStart: {}
     )
 }

@@ -40,20 +40,22 @@ struct ContentView: View {
             HStack(spacing: 20) {
                 // 左面板
                 VStack(spacing: 15) {
-                    HoldPieceView(engine: engine, theme: theme)
-                    ScorePanelView(engine: engine, theme: theme)
+                    HoldPieceView(engine: engine, theme: theme, localization: localization)
+                    ScorePanelView(engine: engine, theme: theme, localization: localization)
                     
-                    Button(action: { showSettings = true }) {
-                        Label(localization.t("游戏设置", "Settings"), systemImage: "gearshape")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
+                    BlockButton(
+                        label: localization.t("游戏设置", "Settings"),
+                        systemImage: "gearshape",
+                        color: .blockI,
+                        action: { showSettings = true }
+                    )
                     
-                    Button(action: { showLeaderboard = true }) {
-                        Label(localization.t("排行榜", "Leaderboard"), systemImage: "trophy")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
+                    BlockButton(
+                        label: localization.t("排行榜", "Leaderboard"),
+                        systemImage: "trophy",
+                        color: .blockZ,
+                        action: { showLeaderboard = true }
+                    )
                     
                     Spacer()
                 }
@@ -74,6 +76,7 @@ struct ContentView: View {
                         leaderboard: leaderboard,
                         localization: LocalizationManager.shared,
                         celebrationSystem: celebration,
+                        soundEngine: soundEngine,
                         onStart: startGame
                     )
                 }
@@ -81,27 +84,30 @@ struct ContentView: View {
                 
                 // 右面板
                 VStack(spacing: 15) {
-                    NextPiecesView(engine: engine, theme: theme)
+                    NextPiecesView(engine: engine, theme: theme, localization: localization)
                     
-                    Button(action: {
-                        localization.language = localization.language == .chinese ? .english : .chinese
-                    }) {
-                        Label(localization.language == .chinese ? "English" : "中文", systemImage: "globe")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
+                    BlockButton(
+                        label: localization.language == .chinese ? "English" : "中文",
+                        systemImage: "globe",
+                        color: .blockO,
+                        action: {
+                            localization.language = localization.language == .chinese ? .english : .chinese
+                        }
+                    )
                     
-                    Button(action: { showAudioSettings = true }) {
-                        Label(localization.t("音频", "Audio"), systemImage: "speaker.wave.2")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
+                    BlockButton(
+                        label: localization.t("音频", "Audio"),
+                        systemImage: "speaker.wave.2",
+                        color: .blockL,
+                        action: { showAudioSettings = true }
+                    )
                     
-                    Button(action: { showThemeSettings = true }) {
-                        Label(localization.t("主题", "Theme"), systemImage: "paintbrush")
-                            .frame(maxWidth: .infinity)
-                    }
-                    .buttonStyle(.bordered)
+                    BlockButton(
+                        label: localization.t("主题", "Theme"),
+                        systemImage: "paintbrush",
+                        color: .blockT,
+                        action: { showThemeSettings = true }
+                    )
                     
                     Spacer()
                 }
@@ -112,8 +118,10 @@ struct ContentView: View {
             }
             .padding(20)
             
-            // 🎆 最顶层：全屏庆祝粒子层（独立于游戏粒子）
-            CelebrationOverlayView(system: celebration)
+            // 🎆 全屏庆祝层（仅在庆祝时显示，覆盖整个界面）
+            if celebration.isActive {
+                CelebrationOverlayView(system: celebration)
+            }
         }
         .environmentObject(engine)
         .environmentObject(theme)

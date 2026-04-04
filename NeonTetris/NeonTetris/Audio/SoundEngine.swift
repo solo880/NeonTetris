@@ -22,6 +22,9 @@ enum SoundEffect: String {
     case levelUp    = "levelUp"     // 升级
     case gameOver   = "gameOver"    // 游戏结束
     case wallHit    = "wallHit"     // 撞墙
+    case firecrackerPop = "firecrackerPop"  // 鞭炮噼啪
+    case fireworkLaunch = "fireworkLaunch"  // 烟花升空
+    case fireworkBurst  = "fireworkBurst"   // 烟花炸开
 }
 
 // MARK: - 音效引擎
@@ -58,7 +61,8 @@ class SoundEngine {
     private func preloadSounds() {
         for effect in [SoundEffect.move, .rotate, .rotateFail, .softDrop, .hardDrop,
                        .lock, .clear1, .clear2, .clear3, .clear4,
-                       .hold, .levelUp, .gameOver, .wallHit] {
+                       .hold, .levelUp, .gameOver, .wallHit,
+                       .firecrackerPop, .fireworkLaunch, .fireworkBurst] {
             if let buffer = loadBuffer(named: effect.rawValue) {
                 buffers[effect] = buffer
             } else {
@@ -128,6 +132,15 @@ class SoundEngine {
         case .wallHit:
             // 撞墙：沉闷的撞击，120Hz + 噪声，持续 60ms
             return generateClickWithNoise(frequency: 120, duration: 0.06, format: format)
+        case .firecrackerPop:
+            // 鞭炮噼啪：快速爆裂声，高频噪声 + 快速衰减，持续 50ms
+            return generateFirecrackerPop(duration: 0.05, format: format)
+        case .fireworkLaunch:
+            // 烟花升空：上升的嗖嗖声，低频到高频扫频，持续 400ms
+            return generateFireworkLaunch(duration: 0.4, format: format)
+        case .fireworkBurst:
+            // 烟花炸开：低沉的爆炸声 + 高频碎片，持续 300ms
+            return generateFireworkBurst(duration: 0.3, format: format)
         }
     }
 
@@ -286,6 +299,75 @@ class SoundEngine {
         return buffer
     }
 
+    // MARK: - 庆祝音效生成
+
+    // 鞭炮噼啪声：快速爆裂
+    private func generateFirecrackerPop(duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            // 极快攻击 + 快速衰减
+            let env = Float(exp(-t * 80)) * 0.5
+            // 高频噪声模拟纸屑爆裂
+            let crackle = Float.random(in: -1...1)
+            // 添加一些中频共振
+            let resonance = Float(sin(2 * .pi * 2000 * t) * 0.3) * Float(exp(-t * 60))
+            data[i] = (crackle + resonance) * env
+        }
+        return buffer
+    }
+
+    // 烟花升空嗖嗖声
+    private func generateFireworkLaunch(duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            let progress = t / duration
+            // 从低频扫到高频（模拟烟花上升）
+            let freq = 300 + 2000 * progress
+            // 包络：渐入渐出
+            let env = Float(sin(Double.pi * progress)) * 0.35
+            // 正弦波 + 高频噪声
+            let sine = Float(sin(2 * .pi * freq * t)) * 0.5
+            let noise = Float.random(in: -1...1) * 0.3 * Float(progress)
+            // 噼啪效果
+            let crackle = Float.random(in: -1...1) * 0.15 * Float(exp(-t * 5))
+            data[i] = (sine + noise + crackle) * env
+        }
+        return buffer
+    }
+
+    // 烟花爆炸声
+    private func generateFireworkBurst(duration: Double, format: AVAudioFormat) -> AVAudioPCMBuffer? {
+        let frameCount = AVAudioFrameCount(format.sampleRate * duration)
+        guard let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount) else { return nil }
+        buffer.frameLength = frameCount
+        let data = buffer.floatChannelData![0]
+        for i in 0..<Int(frameCount) {
+            let t = Double(i) / format.sampleRate
+            // 爆炸包络：极快攻击 + 中等衰减
+            let attack = Float(min(t / 0.005, 1.0))
+            let decay = Float(exp(-t * 6))
+            let env = attack * decay * 0.6
+            // 低频冲击波
+            let boom = Float(sin(2 * .pi * 60 * t)) * 0.5
+            // 中频爆炸
+            let mid = Float(sin(2 * .pi * 400 * t)) * 0.3 * Float(exp(-t * 10))
+            // 高频碎片飞散声
+            let shimmer = Float.random(in: -1...1) * 0.4 * Float(exp(-t * 4))
+            // 添加金属共鸣
+            let ring = Float(sin(2 * .pi * 3000 * t)) * 0.15 * Float(exp(-t * 8))
+            data[i] = (boom + mid + shimmer + ring) * env
+        }
+        return buffer
+    }
+
     // MARK: - 播放音效
     func play(_ effect: SoundEffect) {
         guard enabled, let buffer = buffers[effect] else { return }
@@ -299,6 +381,102 @@ class SoundEngine {
             }
         })
         player.play()
+    }
+
+    // MARK: - 庆祝音效播放
+
+    // 播放单次鞭炮爆炸声（短促爆裂）
+    func playSingleFirecracker() {
+        guard enabled, let buffer = buffers[.firecrackerPop] else { return }
+        
+        let player = AVAudioPlayerNode()
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: buffer.format)
+        // 随机音量和音高变化，让每次爆炸听起来不同
+        player.volume = Float.random(in: 0.6...1.0)
+        player.scheduleBuffer(buffer, completionHandler: {
+            DispatchQueue.main.async {
+                self.engine.detach(player)
+            }
+        })
+        player.play()
+    }
+
+    // 播放烟花升空声
+    func playFireworkLaunch() {
+        guard enabled, let buffer = buffers[.fireworkLaunch] else { return }
+        
+        let player = AVAudioPlayerNode()
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: buffer.format)
+        player.volume = 0.7
+        player.scheduleBuffer(buffer, completionHandler: {
+            DispatchQueue.main.async {
+                self.engine.detach(player)
+            }
+        })
+        player.play()
+    }
+
+    // 播放烟花爆炸声
+    func playFireworkBurst() {
+        guard enabled, let buffer = buffers[.fireworkBurst] else { return }
+        
+        let player = AVAudioPlayerNode()
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: buffer.format)
+        player.volume = 0.9
+        player.scheduleBuffer(buffer, completionHandler: {
+            DispatchQueue.main.async {
+                self.engine.detach(player)
+            }
+        })
+        player.play()
+    }
+    
+    // 播放单次鞭炮声
+    func playFirecracker() {
+        play(.firecrackerPop)
+    }
+
+    // 持续随机播放鞭炮声（配合鞭炮视觉效果）
+    func playFirecrackersBarrage(duration: Double, interval: Double = 0.08) {
+        var count = 0
+        let maxCount = Int(duration / interval)
+        Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [self] timer in
+            count += 1
+            // 随机音量变化，让鞭炮声更自然
+            let volume = Float.random(in: 0.3...1.0)
+            playFirecrackerWithVolume(volume)
+            if count >= maxCount {
+                timer.invalidate()
+            }
+        }
+    }
+    
+    // 播放单次鞭炮声（带指定音量）
+    private func playFirecrackerWithVolume(_ vol: Float) {
+        guard enabled, let buffer = buffers[.firecrackerPop] else { return }
+        
+        let player = AVAudioPlayerNode()
+        engine.attach(player)
+        engine.connect(player, to: mixer, format: buffer.format)
+        player.volume = vol
+        player.scheduleBuffer(buffer, completionHandler: {
+            DispatchQueue.main.async {
+                self.engine.detach(player)
+            }
+        })
+        player.play()
+    }
+
+    // 播放烟花升空 + 爆炸
+    func playFirework() {
+        play(.fireworkLaunch)
+        // 400ms 后播放爆炸声
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { [self] in
+            play(.fireworkBurst)
+        }
     }
 
     // MARK: - 订阅游戏事件

@@ -1,6 +1,6 @@
 // ============================================================
 // HoldPieceView.swift — 暂存方块显示面板
-// 负责：显示暂存的方块、暂存状态
+// 负责：显示暂存的方块、暂存状态，支持中英文
 // ============================================================
 
 import SwiftUI
@@ -8,12 +8,14 @@ import SwiftUI
 struct HoldPieceView: View {
     @ObservedObject var engine: GameEngine
     @ObservedObject var theme: AppTheme
+    @ObservedObject var localization: LocalizationManager
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("暂存")
+            Text(localization.t("暂存", "Hold"))
                 .font(.headline)
-                .foregroundColor(theme.config.textColor)
+                .foregroundColor(.black)
+                .outlineShadow(color: .white)
             
             ZStack {
                 theme.config.boardColor
@@ -32,15 +34,17 @@ struct HoldPieceView: View {
                         }
                     }
                 } else {
-                    Text("空")
-                        .foregroundColor(theme.config.textColor.opacity(0.5))
+                    Text(localization.t("空", "Empty"))
+                        .foregroundColor(.black)
+                        .outlineShadow(color: .white)
                 }
             }
             .frame(height: 100)
             
-            Text(engine.canHold ? "可暂存" : "已暂存")
+            Text(engine.canHold ? localization.t("可暂存", "Available") : localization.t("已暂存", "Used"))
                 .font(.caption)
-                .foregroundColor(engine.canHold ? .green : .gray)
+                .foregroundColor(engine.canHold ? .green : .red)
+                .outlineShadow(color: .white)
         }
         .padding()
         .background(theme.config.panelColor)
@@ -49,5 +53,9 @@ struct HoldPieceView: View {
 }
 
 #Preview {
-    HoldPieceView(engine: GameEngine(), theme: AppTheme())
+    HoldPieceView(
+        engine: GameEngine(),
+        theme: AppTheme(),
+        localization: LocalizationManager.shared
+    )
 }

@@ -1,6 +1,6 @@
 // ============================================================
 // AudioSettingsPanel.swift — 音频设置面板
-// 负责：音效/背景音乐开关和音量调整
+// 负责：音效/背景音乐开关和音量调整，支持中英文
 // ============================================================
 
 import SwiftUI
@@ -10,6 +10,7 @@ struct AudioSettingsPanel: View {
     var soundEngine: SoundEngine?
     var musicPlayer: MusicPlayer?
     @ObservedObject var theme: AppTheme
+    @ObservedObject var localization = LocalizationManager.shared
     
     @State private var soundVolume: Float = 0.8
     @State private var musicVolume: Float = 0.5
@@ -19,32 +20,30 @@ struct AudioSettingsPanel: View {
     var body: some View {
         VStack(spacing: 20) {
             HStack {
-                Text("音频设置")
+                Text(localization.t("音频设置", "Audio Settings"))
                     .font(.headline)
                 Spacer()
-                Button("关闭") { dismiss() }
+                Button(localization.t("关闭", "Close")) { dismiss() }
             }
             
             VStack(spacing: 15) {
                 // 测试音效按钮
-                Button(action: {
-                    // 测试各种音效
-                    soundEngine?.play(.move)
-                }) {
-                    Label("测试音效", systemImage: "speaker.wave.2")
-                        .frame(maxWidth: .infinity)
-                }
-                .buttonStyle(.borderedProminent)
+                BlockButton(
+                    label: localization.t("测试音效", "Test Sound"),
+                    systemImage: "speaker.wave.2",
+                    color: .blockI,
+                    action: { soundEngine?.play(.move) }
+                )
                 
                 Divider()
                 
                 // 音效设置
                 VStack(alignment: .leading, spacing: 10) {
-                    Toggle("启用音效", isOn: $soundEnabled)
+                    Toggle(localization.t("启用音效", "Enable Sound"), isOn: $soundEnabled)
                         .onChange(of: soundEnabled) { soundEngine?.enabled = $0 }
                     
                     HStack {
-                        Text("音量")
+                        Text(localization.t("音量", "Volume"))
                         Slider(value: $soundVolume, in: 0...1, step: 0.1)
                             .onChange(of: soundVolume) { soundEngine?.volume = $0 }
                         Text("\(Int(soundVolume * 100))%")
@@ -56,23 +55,25 @@ struct AudioSettingsPanel: View {
                 
                 // 背景音乐设置
                 VStack(alignment: .leading, spacing: 10) {
-                    Toggle("启用背景音乐", isOn: $musicEnabled)
+                    Toggle(localization.t("启用背景音乐", "Enable Music"), isOn: $musicEnabled)
                         .onChange(of: musicEnabled) { musicPlayer?.enabled = $0 }
                     
                     HStack {
-                        Text("音量")
+                        Text(localization.t("音量", "Volume"))
                         Slider(value: $musicVolume, in: 0...1, step: 0.1)
                             .onChange(of: musicVolume) { musicPlayer?.volume = $0 }
                         Text("\(Int(musicVolume * 100))%")
                             .frame(width: 40)
                     }
                     
-                    Button("选择自定义音乐") {
-                        musicPlayer?.selectCustomMusic()
-                    }
+                    BlockButton(
+                        label: localization.t("选择自定义音乐", "Select Custom Music"),
+                        color: .blockL,
+                        action: { musicPlayer?.selectCustomMusic() }
+                    )
                     
                     if let name = musicPlayer?.currentTrackName {
-                        Text("当前: \(name)")
+                        Text(localization.t("当前", "Current") + ": \(name)")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }

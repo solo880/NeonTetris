@@ -1,6 +1,6 @@
 // ============================================================
 // LeaderboardPanel.swift — 排行榜面板
-// 负责：显示前十名、显示庆祝动画
+// 负责：显示前十名、显示庆祝动画，支持中英文
 // ============================================================
 
 import SwiftUI
@@ -9,6 +9,7 @@ struct LeaderboardPanel: View {
     @Environment(\.dismiss) var dismiss
     @ObservedObject var leaderboard: LeaderboardManager
     @ObservedObject var theme: AppTheme
+    @ObservedObject var localization = LocalizationManager.shared
     
     @State private var showFireworks = false
     @State private var showFirecrackers = false
@@ -23,7 +24,7 @@ struct LeaderboardPanel: View {
             
             VStack(spacing: 20) {
                 // 标题
-                Text("排行榜")
+                Text(localization.t("排行榜", "Leaderboard"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .foregroundColor(theme.config.accentColor)
@@ -70,14 +71,12 @@ struct LeaderboardPanel: View {
                 }
                 
                 // 关闭按钮
-                Button(action: { dismiss() }) {
-                    Text("关闭")
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .frame(width: 120, height: 44)
-                        .background(theme.config.accentColor)
-                        .cornerRadius(12)
-                }
+                BlockButton(
+                    label: localization.t("关闭", "Close"),
+                    color: .blockJ,
+                    action: { dismiss() }
+                )
+                .frame(width: 120, height: 44)
             }
             .padding()
         }

@@ -97,3 +97,22 @@ extension Array {
         indices.contains(index) ? self[index] : nil
     }
 }
+
+// MARK: - Shadow 扩展
+struct OutlineShadow: ViewModifier {
+    let color: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .shadow(color: color, radius: 0, x: 1, y: 1)
+            .shadow(color: color, radius: 0, x: -1, y: -1)
+            .shadow(color: color, radius: 0, x: 1, y: -1)
+            .shadow(color: color, radius: 0, x: -1, y: 1)
+    }
+}
+
+extension View {
+    func outlineShadow(color: Color) -> some View {
+        self.modifier(OutlineShadow(color: color))
+    }
+}
