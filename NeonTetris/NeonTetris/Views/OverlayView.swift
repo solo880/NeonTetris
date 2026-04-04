@@ -119,10 +119,6 @@ struct OverlayView: View {
                 action: { engine.togglePause() }
             )
             .frame(width: 200)
-            .shadow(color: .white, radius: 0, x: 1, y: 1)
-            .shadow(color: .white, radius: 0, x: -1, y: -1)
-            .shadow(color: .white, radius: 0, x: 1, y: -1)
-            .shadow(color: .white, radius: 0, x: -1, y: 1)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.black.opacity(0.4))
@@ -255,18 +251,15 @@ struct OverlayView: View {
         }
     }
     
-    // MARK: - 触发庆祝效果（使用独立庆祝层）
+    // MARK: - 触发庆祝效果
     private func triggerCelebration(rank: Int) {
         guard !celebrationTriggered else { return }
         celebrationTriggered = true
         
-        // 使用独立的全屏庆祝层（自动获取屏幕尺寸）
-        CelebrationTrigger.trigger(
-            rank: rank,
-            system: celebrationSystem,
-            playerName: playerName,
-            soundEngine: soundEngine
-        )
+        // 设置庆祝系统信息，CelebrationOverlayView 会自动处理显示
+        celebrationSystem.playerName = playerName
+        celebrationSystem.playerRank = rank
+        celebrationSystem.isActive = true
     }
 }
 
