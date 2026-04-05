@@ -125,6 +125,9 @@ struct GameBoardView: View {
             }
             .frame(width: GameConst.boardW, height: GameConst.boardH)
             .border(theme.config.accentColor, width: 2)
+            
+            //.outlineShadow(color: .white)
+            
             .overlay(
                 KeyboardEventHandler { key in
                     handleKeyPress(key)
