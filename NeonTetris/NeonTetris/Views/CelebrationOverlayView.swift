@@ -282,8 +282,8 @@ struct CelebrationTrigger {
             }
         }
         
-        // 停止时间
-        let stopDelay = rank <= 3 ? 10.0 : 6.0
+        // 停止时间（增加10秒）
+        let stopDelay = rank <= 3 ? 20.0 : 16.0
         DispatchQueue.main.asyncAfter(deadline: .now() + stopDelay) {
             system.stop()
         }
@@ -440,11 +440,11 @@ struct CelebrationTrigger {
             Color(red: 1.0, green: 1.0, blue: 0.8),
         ]
         
-        // 爆炸核心粒子（4-6个，快速扩散）- 减少数量避免卡顿
+        // 爆炸核心粒子（4-6个，快速扩散）- 速度加倍
         let coreCount = Int.random(in: 4...6)
         for _ in 0..<coreCount {
             let angle = CGFloat.random(in: 0...(2 * .pi))
-            let speed = CGFloat.random(in: 80...180)
+            let speed = CGFloat.random(in: 160...360)  // 速度加倍 (80*2...180*2)
             
             batch.append(.init(
                 x: x + CGFloat.random(in: -5...5),
@@ -459,11 +459,11 @@ struct CelebrationTrigger {
             ))
         }
         
-        // 飞溅碎片（8-12个，飞得更远，受重力掉落）- 减少数量避免卡顿
+        // 飞溅碎片（8-12个，飞得更远，受重力掉落）- 速度加倍
         let debrisCount = Int.random(in: 8...12)
         for _ in 0..<debrisCount {
             let angle = CGFloat.random(in: 0...(2 * .pi))
-            let speed = CGFloat.random(in: 150...350)
+            let speed = CGFloat.random(in: 300...700)  // 速度加倍 (150*2...350*2)
             // 稍微向上偏，模拟爆炸飞溅
             let upwardBias = CGFloat.random(in: -0.3...0.8)
             let vx = cos(angle) * speed
@@ -549,14 +549,14 @@ struct CelebrationTrigger {
         let accentColor = Color(hue: fmod(hue + 0.3, 1.0), saturation: 0.7, brightness: 1.0)
         let colors = [mainColor, secondaryColor, accentColor, .white]
         
-        // 火花数量：30-40个，均匀圆形分布 - 减少数量避免卡顿
+        // 火花数量：30-40个，均匀圆形分布 - 速度加倍
         let sparkCount = Int.random(in: 30...40)
         
         for i in 0..<sparkCount {
             // 圆形均匀分布
             let angle = CGFloat(i) / CGFloat(sparkCount) * 2 * .pi + CGFloat.random(in: -0.1...0.1)
-            // 速度有层次：内圈慢，外圈快
-            let speedBase = CGFloat.random(in: 100...250)
+            // 速度有层次：内圈慢，外圈快 - 速度加倍
+            let speedBase = CGFloat.random(in: 200...500)  // 速度加倍 (100*2...250*2)
             let speedVariation = CGFloat.random(in: 0.8...1.2)
             let speed = speedBase * speedVariation
             
@@ -582,10 +582,10 @@ struct CelebrationTrigger {
             ))
         }
         
-        // 添加一些更亮的中心火花 - 减少数量但增大尺寸
+        // 添加一些更亮的中心火花 - 速度加倍
         for _ in 0..<5 {
             let angle = CGFloat.random(in: 0...(2 * .pi))
-            let speed = CGFloat.random(in: 50...100)
+            let speed = CGFloat.random(in: 100...200)  // 速度加倍 (50*2...100*2)
             
             batch.append(.init(
                 x: x,

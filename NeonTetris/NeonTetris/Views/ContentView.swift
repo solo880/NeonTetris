@@ -7,9 +7,9 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
-    @StateObject private var engine = GameEngine()
     @StateObject private var theme = AppTheme()
     @StateObject private var settings = GameSettings()
+    @StateObject private var engine: GameEngine
     @StateObject private var particles = ParticleSystem()
     @StateObject private var leaderboard = LeaderboardManager.shared
     @StateObject private var localization = LocalizationManager.shared
@@ -25,6 +25,13 @@ struct ContentView: View {
     
     // 保存订阅，防止被立即释放
     @State private var cancellables = Set<AnyCancellable>()
+    
+    // 初始化 engine 时传入共享的 settings 实例
+    init() {
+        let sharedSettings = GameSettings()
+        _settings = StateObject(wrappedValue: sharedSettings)
+        _engine = StateObject(wrappedValue: GameEngine(settings: sharedSettings))
+    }
     
     var body: some View {
         ZStack {

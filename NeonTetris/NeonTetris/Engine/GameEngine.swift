@@ -80,13 +80,51 @@ class GameEngine: ObservableObject {
     private var lockResetCount: Int = 0             // 锁定重置次数（最多15次）
     private var hardDropStartY: Int = 0             // 硬降起始行（用于粒子）
 
-    // MARK: - 设置引用
-    var settings: GameSettings = GameSettings()
+    // MARK: - 设置引用（外部传入，共享实例）
+    var settings: GameSettings {
+        didSet {
+            subscribeToSettings()
+        }
+    }
+    
+    // MARK: - 私有属性
+    private var settingsCancellable: AnyCancellable?
+    
+    /// 订阅设置变化
+    private func subscribeToSettings() {
+        settingsCancellable?.cancel()
+        settingsCancellable = settings.$speedMultiplier
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.onSpeedChanged()
+            }
+        settingsCancellable = settings.$startLevel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.onLevelChanged()
+            }
+    }
+    
+    /// 速度设置变化时，重启重力计时器
+    private func onSpeedChanged() {
+        guard gameState == .playing else { return }
+        startGravity()
+    }
+    
+    /// 等级设置变化时，更新当前等级（游戏未开始时）
+    private func onLevelChanged() {
+        guard gameState == .idle else { return }
+        level = settings.startLevel
+    }
 
     // MARK: - 初始化
-    init() {
+    init(settings: GameSettings = GameSettings()) {
+        self.settings = settings
         refillBag()
         refillBag()  // 预填充两袋保证 nextPieces 足够
+        
+        // 监听设置变化
+        subscribeToSettings()
     }
 
     // MARK: - 开始游戏
