@@ -21,7 +21,19 @@ class CelebrationSystem: ObservableObject {
     @Published var playerName: String = ""
     @Published var playerRank: Int = 0
     @Published var isActive: Bool = false
+    // 粒子与循环控制
+    var maxParticles: Int = 2000           // 全局上限（保护）
+    var highWatermark: Int = 1700          // 超过此值时降载
+    var lowWatermark: Int = 1200           // 低于此值时恢复
     private var displayTimer: Timer?
+    private var loopTimerFireworks: Timer?
+    private var loopTimerCrackers: Timer?
+    private var reducedLoad: Bool = false  // 当前是否降载模式
+    // 每帧新增粒子上限（仅对烟花爆炸火花生效）
+    var perFrameSparkCap: Int = 40
+    // FPS 目标与时间采样
+    var fpsTarget: Int = 60
+    private var lastUpdateAt: CFAbsoluteTime?
     
     struct CelebrationParticle: Identifiable {
         let id = UUID()
@@ -41,23 +53,84 @@ class CelebrationSystem: ObservableObject {
         playerName = name
         playerRank = rank
         isActive = true
-        guard displayTimer == nil else { return }
-        displayTimer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { [weak self] _ in
-            Task { @MainActor [weak self] in
-                self?.update()
+        applyTimer()
+    }
+    
+    func startLoops(canvasSize: CGSize, intensity: GameSettings.CelebrationIntensity) {
+        stopLoops()
+        // 根据游戏设置的庆祝强度自适应参数
+        var fireworkInterval: TimeInterval
+        var crackerInterval: TimeInterval
+        var cap = maxParticles
+        switch intensity {
+        case .normal:
+            fireworkInterval = 1.2
+            crackerInterval = 0.45
+            cap = 1400
+        case .fancy:
+            fireworkInterval = 0.9
+            crackerInterval = 0.30
+            cap = 2000
+        case .extreme:
+            fireworkInterval = 0.6
+            crackerInterval = 0.20
+            cap = 2600
+        }
+        self.maxParticles = cap
+
+        // 连续烟花
+        loopTimerFireworks = Timer.scheduledTimer(withTimeInterval: fireworkInterval, repeats: true) { [weak self] _ in
+            guard let self = self, self.isActive else { return }
+            if self.particles.count > self.highWatermark { return }
+            // 根据强度调整“每帧火花上限”（减少一半）
+            switch intensity {
+            case .normal: self.perFrameSparkCap = 20
+            case .fancy:  self.perFrameSparkCap = 40 // 原 80 的一半理念
+            case .extreme:self.perFrameSparkCap = 60 // 原更高，也按一半控制
             }
+            let W = Float(canvasSize.width)
+            let H = Float(canvasSize.height)
+            CelebrationTrigger.launchFirework(system: self, W: W, H: H, soundEngine: nil)
+        }
+        // 连续鞭炮
+        loopTimerCrackers = Timer.scheduledTimer(withTimeInterval: crackerInterval, repeats: true) { [weak self] _ in
+            guard let self = self, self.isActive else { return }
+            if self.particles.count > self.highWatermark { return }
+            let W = canvasSize.width
+            let H = canvasSize.height
+            let left = Bool.random()
+            let x = left ? CGFloat.random(in: W*0.04...W*0.08) : CGFloat.random(in: W*0.92...W*0.96)
+            let y = CGFloat.random(in: H*0.08...H*0.55)
+            CelebrationTrigger.explodeFirecracker(system: self, x: x, y: y)
         }
     }
     
+    func stopLoops() {
+        loopTimerFireworks?.invalidate(); loopTimerFireworks = nil
+        loopTimerCrackers?.invalidate(); loopTimerCrackers = nil
+    }
+    
     func stop() {
-        displayTimer?.invalidate()
-        displayTimer = nil
+        displayTimer?.invalidate(); displayTimer = nil
+        stopLoops()
         particles.removeAll()
         isActive = false
     }
     
     private func update() {
-        let dt: Float = 0.016
+        let now = CFAbsoluteTimeGetCurrent()
+        let targetDt = 1.0 / Double(max(1, fpsTarget))
+        let realDt = lastUpdateAt.map { min(max(now - $0, targetDt * 0.5), 0.05) } ?? targetDt
+        lastUpdateAt = now
+        let dt: Float = Float(realDt)
+
+        // 自适应降载切换（基于总量与帧时长）
+        if particles.count > highWatermark || realDt > targetDt * 1.5 {
+            reducedLoad = true
+        } else if particles.count < lowWatermark && realDt < targetDt * 1.1 {
+            reducedLoad = false
+        }
+
         for i in particles.indices {
             particles[i].life -= dt
             
@@ -87,16 +160,46 @@ class CelebrationSystem: ObservableObject {
     }
     
     func addParticles(_ newOnes: [CelebrationParticle]) {
-        let cap = 3000
+        let cap = maxParticles
         let available = cap - particles.count
         guard available > 0 else { return }
-        particles.append(contentsOf: newOnes.prefix(available))
+        // 降载时进一步削减新粒子
+        var slice = reducedLoad ? max(available / 2, 0) : available
+        if slice <= 0 { return }
+        // 对烟花爆炸火花（fireworkSpark）执行“每帧上限”控制
+        let sparks = newOnes.filter { $0.type == .fireworkSpark }
+        let others = newOnes.filter { $0.type != .fireworkSpark }
+        let allowedSparks = Array(sparks.prefix(min(perFrameSparkCap, slice)))
+        slice -= allowedSparks.count
+        let allowedOthers = Array(others.prefix(max(slice, 0)))
+        particles.append(contentsOf: allowedSparks + allowedOthers)
+    }
+    
+    // 配置性能：设置 FPS 目标（重建计时器）
+    func configurePerformance(fpsTarget: Int) {
+        let newTarget = (fpsTarget == 120) ? 120 : 60
+        if newTarget != self.fpsTarget {
+            self.fpsTarget = newTarget
+            applyTimer()
+        } else if displayTimer == nil {
+            applyTimer()
+        }
+    }
+    
+    private func applyTimer() {
+        displayTimer?.invalidate(); displayTimer = nil
+        lastUpdateAt = nil
+        let interval = 1.0 / Double(max(1, fpsTarget))
+        displayTimer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in self?.update() }
+        }
     }
 }
 
 // MARK: - 全屏庆祝覆盖层
 struct CelebrationOverlayView: View {
     @ObservedObject var system: CelebrationSystem
+    @EnvironmentObject var settings: GameSettings
     @State private var blinkCount: Int = 0
     @State private var isTextVisible: Bool = true
     @State private var blinkTimer: Timer?
@@ -130,39 +233,50 @@ struct CelebrationOverlayView: View {
                         )
                         
                         // 根据粒子类型绘制不同效果
+                        let gpuFriendly = settings.gpuFriendly
                         switch p.type {
                         case .firecracker, .firecrackerDebris:
-                            // 鞭炮粒子：带光晕
-                            context.fill(
-                                Path(ellipseIn: rect.insetBy(dx: -p.size * 0.3, dy: -p.size * 0.3)),
-                                with: .color(p.color.opacity(Double(p.alpha) * 0.3))
-                            )
+                            // 鞭炮粒子：光晕层在 GPU 友好模式下减少
+                            if !gpuFriendly {
+                                context.fill(
+                                    Path(ellipseIn: rect.insetBy(dx: -p.size * 0.3, dy: -p.size * 0.3)),
+                                    with: .color(p.color.opacity(Double(p.alpha) * 0.3))
+                                )
+                            }
                             context.fill(
                                 Path(ellipseIn: rect),
                                 with: .color(p.color.opacity(Double(p.alpha) * 0.95))
                             )
                         case .fireworkTrail:
-                            // 尾迹：细长
+                            // 尾迹：细长（GPU 友好模式下缩短并减少不透明度）
+                            let lenScale: CGFloat = gpuFriendly ? 1.4 : 2.0
                             let trailRect = CGRect(
                                 x: p.x - p.size / 4,
                                 y: p.y - p.size,
                                 width: p.size / 2,
-                                height: p.size * 2
+                                height: p.size * lenScale
                             )
                             context.fill(
                                 Path(ellipseIn: trailRect),
-                                with: .color(p.color.opacity(Double(p.alpha) * 0.6))
+                                with: .color(p.color.opacity(Double(p.alpha) * (gpuFriendly ? 0.4 : 0.6)))
                             )
                         case .fireworkSpark:
-                            // 火花：带强烈光晕
-                            context.fill(
-                                Path(ellipseIn: rect.insetBy(dx: -p.size * 0.8, dy: -p.size * 0.8)),
-                                with: .color(p.color.opacity(Double(p.alpha) * 0.2))
-                            )
-                            context.fill(
-                                Path(ellipseIn: rect.insetBy(dx: -p.size * 0.4, dy: -p.size * 0.4)),
-                                with: .color(p.color.opacity(Double(p.alpha) * 0.5))
-                            )
+                            // 火花：光晕层在 GPU 友好模式下从 2 层降为 1 层
+                            if !gpuFriendly {
+                                context.fill(
+                                    Path(ellipseIn: rect.insetBy(dx: -p.size * 0.8, dy: -p.size * 0.8)),
+                                    with: .color(p.color.opacity(Double(p.alpha) * 0.2))
+                                )
+                                context.fill(
+                                    Path(ellipseIn: rect.insetBy(dx: -p.size * 0.4, dy: -p.size * 0.4)),
+                                    with: .color(p.color.opacity(Double(p.alpha) * 0.5))
+                                )
+                            } else {
+                                context.fill(
+                                    Path(ellipseIn: rect.insetBy(dx: -p.size * 0.5, dy: -p.size * 0.5)),
+                                    with: .color(p.color.opacity(Double(p.alpha) * 0.35))
+                                )
+                            }
                             context.fill(
                                 Path(ellipseIn: rect),
                                 with: .color(.white.opacity(Double(p.alpha) * 0.9))
@@ -199,6 +313,7 @@ struct CelebrationOverlayView: View {
                             canvasSize: size,
                             soundEngine: nil
                         )
+                        system.startLoops(canvasSize: size, intensity: GameSettings.CelebrationIntensity.fancy)
                     }
                 }
             }
@@ -216,10 +331,12 @@ struct CelebrationOverlayView: View {
                                 canvasSize: size,
                                 soundEngine: nil
                             )
+                            system.startLoops(canvasSize: size, intensity: GameSettings.CelebrationIntensity.fancy)
                         }
                     }
                 } else {
                     stopBlinking()
+                    system.stop()
                 }
             }
         }
@@ -263,30 +380,21 @@ struct CelebrationTrigger {
     
     @MainActor
     static func trigger(rank: Int, system: CelebrationSystem, playerName: String, canvasSize: CGSize, soundEngine: SoundEngine?) {
-        // 设置玩家信息
+        // 设置玩家信息并立即开始一轮视觉
         system.start(name: playerName, rank: rank)
         
         // 使用实际 Canvas 尺寸
         let W = Float(canvasSize.width)
         let H = Float(canvasSize.height)
         
-        // 启动鞭炮效果
+        // 开场：对联式鞭炮一轮+两三发烟花
         startFirecrackerCouplets(system: system, W: W, H: H, soundEngine: soundEngine)
-        
-        if rank <= 3 {
-            // 前三名：发射烟花
-            for i in 0..<6 {
-                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 1.0) {
-                    launchFirework(system: system, W: W, H: H, soundEngine: soundEngine)
-                }
+        for i in 0..<3 {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * 0.8) {
+                launchFirework(system: system, W: W, H: H, soundEngine: soundEngine)
             }
         }
-        
-        // 停止时间（增加10秒）
-        let stopDelay = rank <= 3 ? 20.0 : 16.0
-        DispatchQueue.main.asyncAfter(deadline: .now() + stopDelay) {
-            system.stop()
-        }
+        // 后续持续循环由 CelebrationSystem.startLoops 控制，直到 isActive 被置为 false
     }
     
     // MARK: - 门神对联式鞭炮（悬挂→爆炸）
@@ -421,7 +529,7 @@ struct CelebrationTrigger {
     
     // MARK: - 单个鞭炮爆炸（产生爆炸粒子和碎片）
     @MainActor
-    private static func explodeFirecracker(system: CelebrationSystem, x: CGFloat, y: CGFloat) {
+    static func explodeFirecracker(system: CelebrationSystem, x: CGFloat, y: CGFloat) {
         var batch: [CelebrationSystem.CelebrationParticle] = []
         
         // 爆炸颜色：红色、橙色、金色
@@ -487,7 +595,7 @@ struct CelebrationTrigger {
     
     // MARK: - 发射烟花（从下方飞到中间上方爆炸）
     @MainActor
-    private static func launchFirework(system: CelebrationSystem, W: Float, H: Float, soundEngine: SoundEngine?) {
+    static func launchFirework(system: CelebrationSystem, W: Float, H: Float, soundEngine: SoundEngine?) {
         // 发射位置：底部中间
         let launchX = W * 0.5
         let launchY = H * 0.85
@@ -506,9 +614,9 @@ struct CelebrationTrigger {
         
         soundEngine?.playFireworkLaunch()
         
-        // 尾迹
+        // 尾迹 - 更粗更明显，消失时间加长一倍
         let flightTime = distance / launchSpeed
-        let trailSteps = min(Int(flightTime / 0.02), 15)
+        let trailSteps = min(Int(flightTime / 0.02), 18)  // 增加步数
         
         for i in 0..<trailSteps {
             let t = Float(i) * 0.02
@@ -516,14 +624,15 @@ struct CelebrationTrigger {
                 let px = launchX + vx * t
                 let py = launchY + vy * t
                 
+                // 尾迹粒子：更大更粗，生命周期加长一倍
                 system.addParticles([.init(
                     x: CGFloat(px),
                     y: CGFloat(py),
                     vx: 0,
                     vy: 0,
-                    life: 0.2,
-                    maxLife: 0.2,
-                    size: 3,
+                    life: 0.4,  // 从 0.2 改为 0.4（加长一倍）
+                    maxLife: 0.4,
+                    size: 7,  // 从 3 改为 7（更粗更清楚）
                     color: Color.gray,
                     type: .fireworkTrail
                 )])
@@ -549,16 +658,17 @@ struct CelebrationTrigger {
         let accentColor = Color(hue: fmod(hue + 0.3, 1.0), saturation: 0.7, brightness: 1.0)
         let colors = [mainColor, secondaryColor, accentColor, .white]
         
-        // 火花数量：30-40个，均匀圆形分布 - 速度加倍
-        let sparkCount = Int.random(in: 30...40)
+        // 火花数量减少 1/3（更凝练），均匀圆形分布 + 随机扰动
+        let baseCount = Int.random(in: 50...80)
+        let sparkCount = max(12, Int(Double(baseCount) * (2.0/3.0)))
         
         for i in 0..<sparkCount {
             // 圆形均匀分布
             let angle = CGFloat(i) / CGFloat(sparkCount) * 2 * .pi + CGFloat.random(in: -0.1...0.1)
-            // 速度有层次：内圈慢，外圈快 - 速度加倍
-            let speedBase = CGFloat.random(in: 200...500)  // 速度加倍 (100*2...250*2)
+            // 速度加倍（更有爆发力）
+            let speedBase = CGFloat.random(in: 220...560)
             let speedVariation = CGFloat.random(in: 0.8...1.2)
-            let speed = speedBase * speedVariation
+            let speed = (speedBase * speedVariation) * 2.0
             
             let vx = cos(angle) * speed
             let vy = sin(angle) * speed
@@ -566,34 +676,34 @@ struct CelebrationTrigger {
             // 随机选择颜色
             let color = colors.randomElement()!
             
-            // 大小也有层次 - 增大尺寸
-            let size = CGFloat.random(in: 5...10)
+            // 大小层次不变
+            let size = CGFloat.random(in: 5...12)
             
             batch.append(.init(
                 x: x + CGFloat.random(in: -3...3),
                 y: y + CGFloat.random(in: -3...3),
                 vx: vx,
                 vy: vy,
-                life: Float.random(in: 2.0...3.0),
-                maxLife: 3.0,
+                life: Float.random(in: 1.0...1.5),   // 持续时间减半
+                maxLife: 1.5,
                 size: size,
                 color: color,
                 type: .fireworkSpark
             ))
         }
         
-        // 添加一些更亮的中心火花 - 速度加倍
-        for _ in 0..<5 {
+        // 中心亮白火花：数量减少 1/3、速度加倍、寿命减半
+        for _ in 0..<3 {
             let angle = CGFloat.random(in: 0...(2 * .pi))
-            let speed = CGFloat.random(in: 100...200)  // 速度加倍 (50*2...100*2)
+            let speed = CGFloat.random(in: 200...400)  // 加倍
             
             batch.append(.init(
                 x: x,
                 y: y,
                 vx: cos(angle) * speed,
                 vy: sin(angle) * speed,
-                life: Float.random(in: 1.0...1.5),
-                maxLife: 1.5,
+                life: Float.random(in: 0.5...0.75),   // 半寿命
+                maxLife: 0.75,
                 size: CGFloat.random(in: 8...14),
                 color: .white,
                 type: .fireworkSpark
