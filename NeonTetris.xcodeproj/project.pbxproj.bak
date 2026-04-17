@@ -1,0 +1,847 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D665DD3C2F7E820E00B4801F /* SETTINGS_AND_CELEBRATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD182F7E820E00B4801F /* SETTINGS_AND_CELEBRATION.md */; };
+		D665DD3D2F7E820E00B4801F /* THEME_SETTINGS_OPTIMIZATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD192F7E820E00B4801F /* THEME_SETTINGS_OPTIMIZATION.md */; };
+		D665DD3E2F7E820E00B4801F /* XCODE_PROJECT_RECOVERY.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1A2F7E820E00B4801F /* XCODE_PROJECT_RECOVERY.md */; };
+		D665DD3F2F7E820E00B4801F /* APP_ICON_SETUP.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1B2F7E820E00B4801F /* APP_ICON_SETUP.md */; };
+		D665DD402F7E820E00B4801F /* PHYSICS_SIMULATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1C2F7E820E00B4801F /* PHYSICS_SIMULATION.md */; };
+		D665DD412F7E820E00B4801F /* ARCHITECTURE.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1D2F7E820E00B4801F /* ARCHITECTURE.md */; };
+		D665DD422F7E820E00B4801F /* ION_STRUCTURE_PRECISION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1E2F7E820E00B4801F /* ION_STRUCTURE_PRECISION.md */; };
+		D665DD432F7E820E00B4801F /* COMPLETION_CHECKLIST.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD1F2F7E820E00B4801F /* COMPLETION_CHECKLIST.md */; };
+		D665DD442F7E820E00B4801F /* XCODE_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD202F7E820E00B4801F /* XCODE_FIX.md */; };
+		D665DD452F7E820E00B4801F /* ION_PARTICLE_DESIGN.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD212F7E820E00B4801F /* ION_PARTICLE_DESIGN.md */; };
+		D665DD462F7E820E00B4801F /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD222F7E820E00B4801F /* README.md */; };
+		D665DD472F7E820E00B4801F /* PARTICLE_BALANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD232F7E820E00B4801F /* PARTICLE_BALANCE.md */; };
+		D665DD482F7E820E00B4801F /* LINE_CLEAR_OPTIMIZATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD242F7E820E00B4801F /* LINE_CLEAR_OPTIMIZATION.md */; };
+		D665DD492F7E820E00B4801F /* COLOR_PICKER_FIX.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD252F7E820E00B4801F /* COLOR_PICKER_FIX.md */; };
+		D665DD4A2F7E820E00B4801F /* PARTICLE_OPTIMIZATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD262F7E820E00B4801F /* PARTICLE_OPTIMIZATION.md */; };
+		D665DD4B2F7E820E00B4801F /* PARTICLE_RANDOMIZATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD272F7E820E00B4801F /* PARTICLE_RANDOMIZATION.md */; };
+		D665DD4C2F7E820E00B4801F /* GAME_SETTINGS_AND_CELEBRATION.md in Resources */ = {isa = PBXBuildFile; fileRef = D665DD282F7E820E00B4801F /* GAME_SETTINGS_AND_CELEBRATION.md */; };
+		D665DD7C2F7E844800B4801F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D665DD542F7E844700B4801F /* Assets.xcassets */; };
+		D665DD7D2F7E844800B4801F /* leaderboard.txt in Resources */ = {isa = PBXBuildFile; fileRef = D665DD552F7E844700B4801F /* leaderboard.txt */; };
+		D665DD7E2F7E844800B4801F /* NeonTetrisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD592F7E844700B4801F /* NeonTetrisApp.swift */; };
+		D665DD7F2F7E844800B4801F /* TetrominoTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD5B2F7E844700B4801F /* TetrominoTypes.swift */; };
+		D665DD802F7E844800B4801F /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD5C2F7E844700B4801F /* GameEngine.swift */; };
+		D665DD812F7E844800B4801F /* ScoreSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD5D2F7E844700B4801F /* ScoreSystem.swift */; };
+		D665DD822F7E844800B4801F /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD5E2F7E844700B4801F /* GameSettings.swift */; };
+		D665DD832F7E844800B4801F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D665DD5F2F7E844700B4801F /* Info.plist */; };
+		D665DD842F7E844800B4801F /* MusicPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD612F7E844700B4801F /* MusicPlayer.swift */; };
+		D665DD852F7E844800B4801F /* SoundEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD622F7E844700B4801F /* SoundEngine.swift */; };
+		D665DD862F7E844800B4801F /* ParticleTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD642F7E844800B4801F /* ParticleTypes.swift */; };
+		D665DD872F7E844800B4801F /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = D665DD652F7E844800B4801F /* Shaders.metal */; };
+		D665DD882F7E844800B4801F /* ParticleSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD662F7E844800B4801F /* ParticleSystem.swift */; };
+		D665DD892F7E844800B4801F /* AudioSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD682F7E844800B4801F /* AudioSettingsPanel.swift */; };
+		D665DD8A2F7E844800B4801F /* ThemeSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD692F7E844800B4801F /* ThemeSettingsPanel.swift */; };
+		D665DD8B2F7E844800B4801F /* LeaderboardPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD6A2F7E844800B4801F /* LeaderboardPanel.swift */; };
+		D665DD8C2F7E844800B4801F /* GameSettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD6B2F7E844800B4801F /* GameSettingsPanel.swift */; };
+		D665DD8D2F7E844800B4801F /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD6D2F7E844800B4801F /* Constants.swift */; };
+		D665DD8E2F7E844800B4801F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD6E2F7E844800B4801F /* Extensions.swift */; };
+		D665DD8F2F7E844800B4801F /* ThemeConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD702F7E844800B4801F /* ThemeConfig.swift */; };
+		D665DD902F7E844800B4801F /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD712F7E844800B4801F /* AppTheme.swift */; };
+		D665DD912F7E844800B4801F /* LeaderboardEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD732F7E844800B4801F /* LeaderboardEntry.swift */; };
+		D665DD922F7E844800B4801F /* LeaderboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD742F7E844800B4801F /* LeaderboardManager.swift */; };
+		D665DD932F7E844800B4801F /* OverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD762F7E844800B4801F /* OverlayView.swift */; };
+		D665DD942F7E844800B4801F /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD772F7E844800B4801F /* GameBoardView.swift */; };
+		D665DD952F7E844800B4801F /* NextPiecesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD782F7E844800B4801F /* NextPiecesView.swift */; };
+		D665DD962F7E844800B4801F /* HoldPieceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD792F7E844800B4801F /* HoldPieceView.swift */; };
+		D665DD972F7E844800B4801F /* ScorePanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD7A2F7E844800B4801F /* ScorePanelView.swift */; };
+		D665DD982F7E844800B4801F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DD7B2F7E844800B4801F /* ContentView.swift */; };
+		D665DDA12F7E844800B4801F /* BlockButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DDA22F7E844800B4801F /* BlockButtonStyle.swift */; };
+		D665DDA32F7E844800B4801F /* CelebrationOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DDA42F7E844800B4801F /* CelebrationOverlayView.swift */; };
+		D665DDA52F7E844800B4801F /* LocalizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D665DDA62F7E844800B4801F /* LocalizationManager.swift */; };
+		D6DCB5402F7ED665000069ED /* BGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D6DCB53F2F7ED665000069ED /* BGM.mp3 */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D665DC7C2F7E800000B4801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D665DC602F7E7FFE00B4801F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D665DC672F7E7FFE00B4801F;
+			remoteInfo = NeonTetris;
+		};
+		D665DC862F7E800000B4801F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D665DC602F7E7FFE00B4801F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D665DC672F7E7FFE00B4801F;
+			remoteInfo = NeonTetris;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D665DC682F7E7FFE00B4801F /* NeonTetris.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NeonTetris.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D665DC7B2F7E800000B4801F /* NeonTetrisTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeonTetrisTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D665DC852F7E800000B4801F /* NeonTetrisUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NeonTetrisUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D665DD182F7E820E00B4801F /* SETTINGS_AND_CELEBRATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = SETTINGS_AND_CELEBRATION.md; sourceTree = "<group>"; };
+		D665DD192F7E820E00B4801F /* THEME_SETTINGS_OPTIMIZATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = THEME_SETTINGS_OPTIMIZATION.md; sourceTree = "<group>"; };
+		D665DD1A2F7E820E00B4801F /* XCODE_PROJECT_RECOVERY.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XCODE_PROJECT_RECOVERY.md; sourceTree = "<group>"; };
+		D665DD1B2F7E820E00B4801F /* APP_ICON_SETUP.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = APP_ICON_SETUP.md; sourceTree = "<group>"; };
+		D665DD1C2F7E820E00B4801F /* PHYSICS_SIMULATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PHYSICS_SIMULATION.md; sourceTree = "<group>"; };
+		D665DD1D2F7E820E00B4801F /* ARCHITECTURE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ARCHITECTURE.md; sourceTree = "<group>"; };
+		D665DD1E2F7E820E00B4801F /* ION_STRUCTURE_PRECISION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ION_STRUCTURE_PRECISION.md; sourceTree = "<group>"; };
+		D665DD1F2F7E820E00B4801F /* COMPLETION_CHECKLIST.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COMPLETION_CHECKLIST.md; sourceTree = "<group>"; };
+		D665DD202F7E820E00B4801F /* XCODE_FIX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = XCODE_FIX.md; sourceTree = "<group>"; };
+		D665DD212F7E820E00B4801F /* ION_PARTICLE_DESIGN.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = ION_PARTICLE_DESIGN.md; sourceTree = "<group>"; };
+		D665DD222F7E820E00B4801F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		D665DD232F7E820E00B4801F /* PARTICLE_BALANCE.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PARTICLE_BALANCE.md; sourceTree = "<group>"; };
+		D665DD242F7E820E00B4801F /* LINE_CLEAR_OPTIMIZATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = LINE_CLEAR_OPTIMIZATION.md; sourceTree = "<group>"; };
+		D665DD252F7E820E00B4801F /* COLOR_PICKER_FIX.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COLOR_PICKER_FIX.md; sourceTree = "<group>"; };
+		D665DD262F7E820E00B4801F /* PARTICLE_OPTIMIZATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PARTICLE_OPTIMIZATION.md; sourceTree = "<group>"; };
+		D665DD272F7E820E00B4801F /* PARTICLE_RANDOMIZATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = PARTICLE_RANDOMIZATION.md; sourceTree = "<group>"; };
+		D665DD282F7E820E00B4801F /* GAME_SETTINGS_AND_CELEBRATION.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = GAME_SETTINGS_AND_CELEBRATION.md; sourceTree = "<group>"; };
+		D665DD542F7E844700B4801F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D665DD552F7E844700B4801F /* leaderboard.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = leaderboard.txt; sourceTree = "<group>"; };
+		D665DD592F7E844700B4801F /* NeonTetrisApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NeonTetrisApp.swift; sourceTree = "<group>"; };
+		D665DD5B2F7E844700B4801F /* TetrominoTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TetrominoTypes.swift; sourceTree = "<group>"; };
+		D665DD5C2F7E844700B4801F /* GameEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
+		D665DD5D2F7E844700B4801F /* ScoreSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreSystem.swift; sourceTree = "<group>"; };
+		D665DD5E2F7E844700B4801F /* GameSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		D665DD5F2F7E844700B4801F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D665DD612F7E844700B4801F /* MusicPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicPlayer.swift; sourceTree = "<group>"; };
+		D665DD622F7E844700B4801F /* SoundEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundEngine.swift; sourceTree = "<group>"; };
+		D665DD642F7E844800B4801F /* ParticleTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleTypes.swift; sourceTree = "<group>"; };
+		D665DD652F7E844800B4801F /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		D665DD662F7E844800B4801F /* ParticleSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
+		D665DD682F7E844800B4801F /* AudioSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSettingsPanel.swift; sourceTree = "<group>"; };
+		D665DD692F7E844800B4801F /* ThemeSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeSettingsPanel.swift; sourceTree = "<group>"; };
+		D665DD6A2F7E844800B4801F /* LeaderboardPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardPanel.swift; sourceTree = "<group>"; };
+		D665DD6B2F7E844800B4801F /* GameSettingsPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSettingsPanel.swift; sourceTree = "<group>"; };
+		D665DD6D2F7E844800B4801F /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D665DD6E2F7E844800B4801F /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D665DD702F7E844800B4801F /* ThemeConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeConfig.swift; sourceTree = "<group>"; };
+		D665DD712F7E844800B4801F /* AppTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		D665DD732F7E844800B4801F /* LeaderboardEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardEntry.swift; sourceTree = "<group>"; };
+		D665DD742F7E844800B4801F /* LeaderboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardManager.swift; sourceTree = "<group>"; };
+		D665DD762F7E844800B4801F /* OverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayView.swift; sourceTree = "<group>"; };
+		D665DD772F7E844800B4801F /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		D665DD782F7E844800B4801F /* NextPiecesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPiecesView.swift; sourceTree = "<group>"; };
+		D665DD792F7E844800B4801F /* HoldPieceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoldPieceView.swift; sourceTree = "<group>"; };
+		D665DD7A2F7E844800B4801F /* ScorePanelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScorePanelView.swift; sourceTree = "<group>"; };
+		D665DD7B2F7E844800B4801F /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D665DDA22F7E844800B4801F /* BlockButtonStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockButtonStyle.swift; sourceTree = "<group>"; };
+		D665DDA42F7E844800B4801F /* CelebrationOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CelebrationOverlayView.swift; sourceTree = "<group>"; };
+		D665DDA62F7E844800B4801F /* LocalizationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizationManager.swift; sourceTree = "<group>"; };
+		D6DCB53F2F7ED665000069ED /* BGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "BGM.mp3"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D665DC652F7E7FFE00B4801F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC782F7E800000B4801F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC822F7E800000B4801F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D665DC5F2F7E7FFE00B4801F = {
+			isa = PBXGroup;
+			children = (
+				D665DD172F7E820E00B4801F /* docs */,
+				D665DD292F7E820E00B4801F /* NeonTetris */,
+				D665DC692F7E7FFE00B4801F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D665DC692F7E7FFE00B4801F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D665DC682F7E7FFE00B4801F /* NeonTetris.app */,
+				D665DC7B2F7E800000B4801F /* NeonTetrisTests.xctest */,
+				D665DC852F7E800000B4801F /* NeonTetrisUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D665DD172F7E820E00B4801F /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD182F7E820E00B4801F /* SETTINGS_AND_CELEBRATION.md */,
+				D665DD192F7E820E00B4801F /* THEME_SETTINGS_OPTIMIZATION.md */,
+				D665DD1A2F7E820E00B4801F /* XCODE_PROJECT_RECOVERY.md */,
+				D665DD1B2F7E820E00B4801F /* APP_ICON_SETUP.md */,
+				D665DD1C2F7E820E00B4801F /* PHYSICS_SIMULATION.md */,
+				D665DD1D2F7E820E00B4801F /* ARCHITECTURE.md */,
+				D665DD1E2F7E820E00B4801F /* ION_STRUCTURE_PRECISION.md */,
+				D665DD1F2F7E820E00B4801F /* COMPLETION_CHECKLIST.md */,
+				D665DD202F7E820E00B4801F /* XCODE_FIX.md */,
+				D665DD212F7E820E00B4801F /* ION_PARTICLE_DESIGN.md */,
+				D665DD222F7E820E00B4801F /* README.md */,
+				D665DD232F7E820E00B4801F /* PARTICLE_BALANCE.md */,
+				D665DD242F7E820E00B4801F /* LINE_CLEAR_OPTIMIZATION.md */,
+				D665DD252F7E820E00B4801F /* COLOR_PICKER_FIX.md */,
+				D665DD262F7E820E00B4801F /* PARTICLE_OPTIMIZATION.md */,
+				D665DD272F7E820E00B4801F /* PARTICLE_RANDOMIZATION.md */,
+				D665DD282F7E820E00B4801F /* GAME_SETTINGS_AND_CELEBRATION.md */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		D665DD292F7E820E00B4801F /* NeonTetris */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD582F7E844700B4801F /* App */,
+				D665DD602F7E844700B4801F /* Audio */,
+				D665DD572F7E844700B4801F /* Effects */,
+				D665DD5A2F7E844700B4801F /* Engine */,
+				D665DD5F2F7E844700B4801F /* Info.plist */,
+				D665DD722F7E844800B4801F /* Leaderboard */,
+				D665DD632F7E844800B4801F /* Metal */,
+				D665DD672F7E844800B4801F /* Panels */,
+				D665DD522F7E844700B4801F /* Resources */,
+				D665DD6C2F7E844800B4801F /* Shared */,
+				D665DD6F2F7E844800B4801F /* Theme */,
+				D665DD752F7E844800B4801F /* Views */,
+			);
+			path = NeonTetris;
+			sourceTree = "<group>";
+		};
+		D665DD522F7E844700B4801F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD532F7E844700B4801F /* Music */,
+				D665DD542F7E844700B4801F /* Assets.xcassets */,
+				D665DD552F7E844700B4801F /* leaderboard.txt */,
+				D665DD562F7E844700B4801F /* Sounds */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D665DD532F7E844700B4801F /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				D6DCB53F2F7ED665000069ED /* BGM.mp3 */,
+			);
+			path = Music;
+			sourceTree = "<group>";
+		};
+		D665DD562F7E844700B4801F /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		D665DD572F7E844700B4801F /* Effects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Effects;
+			sourceTree = "<group>";
+		};
+		D665DD582F7E844700B4801F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD592F7E844700B4801F /* NeonTetrisApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		D665DD5A2F7E844700B4801F /* Engine */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD5B2F7E844700B4801F /* TetrominoTypes.swift */,
+				D665DD5C2F7E844700B4801F /* GameEngine.swift */,
+				D665DD5D2F7E844700B4801F /* ScoreSystem.swift */,
+				D665DD5E2F7E844700B4801F /* GameSettings.swift */,
+			);
+			path = Engine;
+			sourceTree = "<group>";
+		};
+		D665DD602F7E844700B4801F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD612F7E844700B4801F /* MusicPlayer.swift */,
+				D665DD622F7E844700B4801F /* SoundEngine.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		D665DD632F7E844800B4801F /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD642F7E844800B4801F /* ParticleTypes.swift */,
+				D665DD652F7E844800B4801F /* Shaders.metal */,
+				D665DD662F7E844800B4801F /* ParticleSystem.swift */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
+		D665DD672F7E844800B4801F /* Panels */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD682F7E844800B4801F /* AudioSettingsPanel.swift */,
+				D665DD692F7E844800B4801F /* ThemeSettingsPanel.swift */,
+				D665DD6A2F7E844800B4801F /* LeaderboardPanel.swift */,
+				D665DD6B2F7E844800B4801F /* GameSettingsPanel.swift */,
+			);
+			path = Panels;
+			sourceTree = "<group>";
+		};
+		D665DD6C2F7E844800B4801F /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD6D2F7E844800B4801F /* Constants.swift */,
+				D665DDA62F7E844800B4801F /* LocalizationManager.swift */,
+				D665DD6E2F7E844800B4801F /* Extensions.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D665DD6F2F7E844800B4801F /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD702F7E844800B4801F /* ThemeConfig.swift */,
+				D665DD712F7E844800B4801F /* AppTheme.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		D665DD722F7E844800B4801F /* Leaderboard */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD732F7E844800B4801F /* LeaderboardEntry.swift */,
+				D665DD742F7E844800B4801F /* LeaderboardManager.swift */,
+			);
+			path = Leaderboard;
+			sourceTree = "<group>";
+		};
+		D665DD752F7E844800B4801F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D665DD762F7E844800B4801F /* OverlayView.swift */,
+				D665DDA22F7E844800B4801F /* BlockButtonStyle.swift */,
+				D665DDA42F7E844800B4801F /* CelebrationOverlayView.swift */,
+				D665DD772F7E844800B4801F /* GameBoardView.swift */,
+				D665DD782F7E844800B4801F /* NextPiecesView.swift */,
+				D665DD792F7E844800B4801F /* HoldPieceView.swift */,
+				D665DD7A2F7E844800B4801F /* ScorePanelView.swift */,
+				D665DD7B2F7E844800B4801F /* ContentView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D665DC672F7E7FFE00B4801F /* NeonTetris */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D665DC8F2F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetris" */;
+			buildPhases = (
+				D665DC642F7E7FFE00B4801F /* Sources */,
+				D665DC652F7E7FFE00B4801F /* Frameworks */,
+				D665DC662F7E7FFE00B4801F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NeonTetris;
+			productName = NeonTetris;
+			productReference = D665DC682F7E7FFE00B4801F /* NeonTetris.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D665DC7A2F7E800000B4801F /* NeonTetrisTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D665DC922F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetrisTests" */;
+			buildPhases = (
+				D665DC772F7E800000B4801F /* Sources */,
+				D665DC782F7E800000B4801F /* Frameworks */,
+				D665DC792F7E800000B4801F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D665DC7D2F7E800000B4801F /* PBXTargetDependency */,
+			);
+			name = NeonTetrisTests;
+			productName = NeonTetrisTests;
+			productReference = D665DC7B2F7E800000B4801F /* NeonTetrisTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D665DC842F7E800000B4801F /* NeonTetrisUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D665DC952F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetrisUITests" */;
+			buildPhases = (
+				D665DC812F7E800000B4801F /* Sources */,
+				D665DC822F7E800000B4801F /* Frameworks */,
+				D665DC832F7E800000B4801F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D665DC872F7E800000B4801F /* PBXTargetDependency */,
+			);
+			name = NeonTetrisUITests;
+			productName = NeonTetrisUITests;
+			productReference = D665DC852F7E800000B4801F /* NeonTetrisUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D665DC602F7E7FFE00B4801F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1520;
+				LastUpgradeCheck = 1520;
+				TargetAttributes = {
+					D665DC672F7E7FFE00B4801F = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					D665DC7A2F7E800000B4801F = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = D665DC672F7E7FFE00B4801F;
+					};
+					D665DC842F7E800000B4801F = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = D665DC672F7E7FFE00B4801F;
+					};
+				};
+			};
+			buildConfigurationList = D665DC632F7E7FFE00B4801F /* Build configuration list for PBXProject "NeonTetris" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D665DC5F2F7E7FFE00B4801F;
+			productRefGroup = D665DC692F7E7FFE00B4801F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D665DC672F7E7FFE00B4801F /* NeonTetris */,
+				D665DC7A2F7E800000B4801F /* NeonTetrisTests */,
+				D665DC842F7E800000B4801F /* NeonTetrisUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D665DC662F7E7FFE00B4801F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D665DD492F7E820E00B4801F /* COLOR_PICKER_FIX.md in Resources */,
+				D665DD3D2F7E820E00B4801F /* THEME_SETTINGS_OPTIMIZATION.md in Resources */,
+				D665DD432F7E820E00B4801F /* COMPLETION_CHECKLIST.md in Resources */,
+				D665DD3F2F7E820E00B4801F /* APP_ICON_SETUP.md in Resources */,
+				D665DD402F7E820E00B4801F /* PHYSICS_SIMULATION.md in Resources */,
+				D665DD442F7E820E00B4801F /* XCODE_FIX.md in Resources */,
+				D665DD482F7E820E00B4801F /* LINE_CLEAR_OPTIMIZATION.md in Resources */,
+				D665DD452F7E820E00B4801F /* ION_PARTICLE_DESIGN.md in Resources */,
+				D665DD832F7E844800B4801F /* Info.plist in Resources */,
+				D665DD3E2F7E820E00B4801F /* XCODE_PROJECT_RECOVERY.md in Resources */,
+				D665DD422F7E820E00B4801F /* ION_STRUCTURE_PRECISION.md in Resources */,
+				D665DD4B2F7E820E00B4801F /* PARTICLE_RANDOMIZATION.md in Resources */,
+				D665DD4C2F7E820E00B4801F /* GAME_SETTINGS_AND_CELEBRATION.md in Resources */,
+				D665DD3C2F7E820E00B4801F /* SETTINGS_AND_CELEBRATION.md in Resources */,
+				D665DD462F7E820E00B4801F /* README.md in Resources */,
+				D665DD4A2F7E820E00B4801F /* PARTICLE_OPTIMIZATION.md in Resources */,
+				D6DCB5402F7ED665000069ED /* BGM.mp3 in Resources */,
+				D665DD412F7E820E00B4801F /* ARCHITECTURE.md in Resources */,
+				D665DD7C2F7E844800B4801F /* Assets.xcassets in Resources */,
+				D665DD7D2F7E844800B4801F /* leaderboard.txt in Resources */,
+				D665DD472F7E820E00B4801F /* PARTICLE_BALANCE.md in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC792F7E800000B4801F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC832F7E800000B4801F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D665DC642F7E7FFE00B4801F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D665DD7E2F7E844800B4801F /* NeonTetrisApp.swift in Sources */,
+				D665DD892F7E844800B4801F /* AudioSettingsPanel.swift in Sources */,
+				D665DD8B2F7E844800B4801F /* LeaderboardPanel.swift in Sources */,
+				D665DD942F7E844800B4801F /* GameBoardView.swift in Sources */,
+				D665DD902F7E844800B4801F /* AppTheme.swift in Sources */,
+				D665DD852F7E844800B4801F /* SoundEngine.swift in Sources */,
+				D665DD812F7E844800B4801F /* ScoreSystem.swift in Sources */,
+				D665DD8D2F7E844800B4801F /* Constants.swift in Sources */,
+				D665DD912F7E844800B4801F /* LeaderboardEntry.swift in Sources */,
+				D665DD842F7E844800B4801F /* MusicPlayer.swift in Sources */,
+				D665DD982F7E844800B4801F /* ContentView.swift in Sources */,
+				D665DD932F7E844800B4801F /* OverlayView.swift in Sources */,
+				D665DDA12F7E844800B4801F /* BlockButtonStyle.swift in Sources */,
+				D665DDA32F7E844800B4801F /* CelebrationOverlayView.swift in Sources */,
+				D665DDA52F7E844800B4801F /* LocalizationManager.swift in Sources */,
+				D665DD822F7E844800B4801F /* GameSettings.swift in Sources */,
+				D665DD802F7E844800B4801F /* GameEngine.swift in Sources */,
+				D665DD922F7E844800B4801F /* LeaderboardManager.swift in Sources */,
+				D665DD8A2F7E844800B4801F /* ThemeSettingsPanel.swift in Sources */,
+				D665DD882F7E844800B4801F /* ParticleSystem.swift in Sources */,
+				D665DD8E2F7E844800B4801F /* Extensions.swift in Sources */,
+				D665DD972F7E844800B4801F /* ScorePanelView.swift in Sources */,
+				D665DD952F7E844800B4801F /* NextPiecesView.swift in Sources */,
+				D665DD872F7E844800B4801F /* Shaders.metal in Sources */,
+				D665DD7F2F7E844800B4801F /* TetrominoTypes.swift in Sources */,
+				D665DD862F7E844800B4801F /* ParticleTypes.swift in Sources */,
+				D665DD8C2F7E844800B4801F /* GameSettingsPanel.swift in Sources */,
+				D665DD962F7E844800B4801F /* HoldPieceView.swift in Sources */,
+				D665DD8F2F7E844800B4801F /* ThemeConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC772F7E800000B4801F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D665DC812F7E800000B4801F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D665DC7D2F7E800000B4801F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D665DC672F7E7FFE00B4801F /* NeonTetris */;
+			targetProxy = D665DC7C2F7E800000B4801F /* PBXContainerItemProxy */;
+		};
+		D665DC872F7E800000B4801F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D665DC672F7E7FFE00B4801F /* NeonTetris */;
+			targetProxy = D665DC862F7E800000B4801F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D665DC8D2F7E800000B4801F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D665DC8E2F7E800000B4801F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		D665DC902F7E800000B4801F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NeonTetris/NeonTetris.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NeonTetris/Preview Content\"";
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetris;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D665DC912F7E800000B4801F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = NeonTetris/NeonTetris.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NeonTetris/Preview Content\"";
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetris;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D665DC932F7E800000B4801F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetrisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeonTetris.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NeonTetris";
+			};
+			name = Debug;
+		};
+		D665DC942F7E800000B4801F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetrisTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NeonTetris.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NeonTetris";
+			};
+			name = Release;
+		};
+		D665DC962F7E800000B4801F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetrisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = NeonTetris;
+			};
+			name = Debug;
+		};
+		D665DC972F7E800000B4801F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = RQ2SJZQB8M;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = zhjw.NeonTetrisUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = NeonTetris;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D665DC632F7E7FFE00B4801F /* Build configuration list for PBXProject "NeonTetris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D665DC8D2F7E800000B4801F /* Debug */,
+				D665DC8E2F7E800000B4801F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D665DC8F2F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetris" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D665DC902F7E800000B4801F /* Debug */,
+				D665DC912F7E800000B4801F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D665DC922F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetrisTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D665DC932F7E800000B4801F /* Debug */,
+				D665DC942F7E800000B4801F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D665DC952F7E800000B4801F /* Build configuration list for PBXNativeTarget "NeonTetrisUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D665DC962F7E800000B4801F /* Debug */,
+				D665DC972F7E800000B4801F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D665DC602F7E7FFE00B4801F /* Project object */;
+}
